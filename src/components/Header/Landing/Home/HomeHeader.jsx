@@ -2,7 +2,7 @@ import React from 'react';
 import { Group, Button, Text, Divider } from '@mantine/core';
 import { BuildingBank } from 'tabler-icons-react';
 
-const LandingHeader = () => {
+const HomeHeader = () => {
   return (
     <>
       <Group position="apart" className="landing-header-container">
@@ -17,4 +17,4 @@ const LandingHeader = () => {
   );
 };
 
-export default LandingHeader;
+export default HomeHeader;

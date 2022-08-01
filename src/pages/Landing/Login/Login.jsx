@@ -1,10 +1,10 @@
 import React from 'react';
-import LandingHeader from '../../../components/Header/Landing/LandingHeader';
+import HomeHeader from '../../../components/Header/Landing/Home/HomeHeader';
 
 const Login = () => {
   return (
     <>
-      <LandingHeader />
+      <HomeHeader />
       <div>Login</div>
     </>
   );
