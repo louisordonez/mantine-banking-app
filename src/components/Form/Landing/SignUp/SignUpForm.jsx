@@ -3,6 +3,7 @@ import { TextInput, PasswordInput, Anchor, Paper, Title, Text, Container, Button
 import { DatePicker } from '@mantine/dates';
 import { BuildingBank } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
+import { convertDate } from '../../../../services/utilities/convertDate';
 
 const SignUpForm = () => {
   return (
@@ -31,7 +32,7 @@ const SignUpForm = () => {
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <TextInput label="First Name" required />
           <TextInput label="Last Name" required mt="md" />
-          <DatePicker label="Birthdate" required mt="md" />
+          <DatePicker label="Birthdate" required mt="md" inputFormat="MM/DD/YYYY" />
           <TextInput label="Email" required mt="md" />
           <PasswordInput label="Password" required mt="md" />
           <PasswordInput label="Confirm Password" required mt="md" />
