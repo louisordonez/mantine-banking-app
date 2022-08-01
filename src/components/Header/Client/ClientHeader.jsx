@@ -11,7 +11,7 @@ const ClientHeader = () => {
         className="cursor-pointer"
         style={{ textDecoration: 'none', color: 'black' }}
         component={Link}
-        to="/client"
+        to="/client/dashboard"
       >
         <BuildingBank size={24} />
         <Text className="bold-text">Banking</Text>
