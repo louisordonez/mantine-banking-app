@@ -15,7 +15,7 @@ const HomeHeader = () => {
           Sign in
         </Button>
       </Group>
-      <Divider my="sm" />
+      <Divider my="sm" style={{ marginBottom: 0 }} />
     </>
   );
 };
