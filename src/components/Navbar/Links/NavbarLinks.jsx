@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from '@mantine/core';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ADMIN_NAVBAR_LINKS_DATA } from '../../../../services/constants/adminNavbarLinksData';
+import { ADMIN_NAVBAR_LINKS_DATA } from '../../../services/constants/adminNavbarLinksData';
 
-const AdminNavbarLinks = ({ onOpened }) => {
+const NavbarLinks = ({ onOpened }) => {
   let params = useParams();
   let navigate = useNavigate();
 
@@ -43,4 +43,4 @@ const AdminNavbarLinks = ({ onOpened }) => {
   );
 };
 
-export default AdminNavbarLinks;
+export default NavbarLinks;

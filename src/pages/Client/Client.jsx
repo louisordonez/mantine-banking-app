@@ -4,7 +4,6 @@ import {
   AppShell,
   Navbar,
   Header,
-  Text,
   MediaQuery,
   Burger,
   useMantineTheme,
@@ -12,20 +11,24 @@ import {
 } from '@mantine/core';
 import { Logout } from 'tabler-icons-react';
 import ClientHeader from '../../components/Header/Client/ClientHeader';
-import AdminNavbarLinks from '../../components/Navbar/Links/Admin/AdminNavbarLinks';
+import ClientDashboard from './Dashboard/ClientDashboard';
+import ClientUsers from './Users/ClientUsers';
+import ClientTransactions from './Transactions/ClientTransactions';
+import ClientSettings from './Settings/ClientSettings';
+import NavbarLinks from '../../components/Navbar/Links/NavbarLinks';
 
 const DisplayContent = () => {
   let params = useParams();
 
   switch (params.client) {
     case 'dashboard':
-      return <Text>Dashboard</Text>;
+      return <ClientDashboard />;
     case 'users':
-      return <Text>Users</Text>;
+      return <ClientUsers />;
     case 'transactions':
-      return <Text>Transactions</Text>;
+      return <ClientTransactions />;
     case 'settings':
-      return <Text>Settings</Text>;
+      return <ClientSettings />;
     default:
       window.location.assign('/dashboard');
   }
@@ -38,7 +41,7 @@ const Client = () => {
   const handleOpened = () => setOpened((o) => !o);
 
   const showNavbarLinks = () => {
-    return <AdminNavbarLinks onOpened={handleOpened} />;
+    return <NavbarLinks onOpened={handleOpened} />;
   };
 
   const handleLogOut = (e) => {
