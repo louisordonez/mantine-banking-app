@@ -1,6 +1,6 @@
 import { Gauge, Users, Cash, Settings } from 'tabler-icons-react';
 
-export const ADMIN_NAVBAR_LINKS = [
+export const ADMIN_NAVBAR_LINKS_DATA = [
   { icon: Gauge, link: 'dashboard', label: 'Dashboard' },
   { icon: Users, link: 'users', label: 'Users' },
   { icon: Cash, link: 'transactions', label: 'Transactions' },
