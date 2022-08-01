@@ -42,7 +42,7 @@ const SignUpForm = () => {
             fontWeight: 900,
           })}
         >
-          Create an account!
+          Create account
         </Title>
         <Text color="dimmed" size="sm" align="center" mt={5}>
           Already have an account?{' '}
