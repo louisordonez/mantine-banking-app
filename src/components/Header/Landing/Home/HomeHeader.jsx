@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Group, Button, Text, Divider } from '@mantine/core';
 import { BuildingBank } from 'tabler-icons-react';
 
@@ -10,7 +11,9 @@ const HomeHeader = () => {
           <BuildingBank size={24} />
           <Text className="bold-text">Banking</Text>
         </Group>
-        <Button variant="outline">Sign in</Button>
+        <Button variant="outline" component={Link} to="/login">
+          Sign in
+        </Button>
       </Group>
       <Divider my="sm" />
     </>
