@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Group, Button, Text, Divider } from '@mantine/core';
+import { Group, Text } from '@mantine/core';
 import { BuildingBank } from 'tabler-icons-react';
 
 const ClientHeader = () => {
@@ -10,8 +9,10 @@ const ClientHeader = () => {
         spacing={6}
         className="cursor-pointer"
         style={{ textDecoration: 'none', color: 'black' }}
-        component={Link}
-        to="/client/dashboard"
+        onClick={(e) => {
+          e.preventDefault();
+          window.location.assign('/client/dashboard');
+        }}
       >
         <BuildingBank size={24} />
         <Text className="bold-text">Banking</Text>
