@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from '@mantine/core';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ADMIN_NAVBAR_LINKS_DATA } from '../../../../services/constants/AdminNavbarLinksData';
+import { ADMIN_NAVBAR_LINKS_DATA } from '../../../../services/constants/adminNavbarLinksData';
 
 const AdminNavbarLinks = ({ onOpened }) => {
   let params = useParams();
