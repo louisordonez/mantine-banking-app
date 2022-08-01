@@ -51,7 +51,7 @@ const LoginForm = () => {
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <TextInput label="Email" required />
           <PasswordInput label="Password" required mt="md" />
-          <Button fullWidth mt="xl">
+          <Button fullWidth mt="xl" color="green">
             Sign in
           </Button>
         </Paper>

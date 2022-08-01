@@ -62,7 +62,7 @@ const SignUpForm = () => {
           <TextInput label="Email" required mt="md" />
           <PasswordInput label="Password" required mt="md" />
           <PasswordInput label="Confirm Password" required mt="md" />
-          <Button fullWidth mt="xl">
+          <Button fullWidth mt="xl" color="green">
             Sign up
           </Button>
         </Paper>

@@ -17,7 +17,7 @@ const HomeHeader = () => {
           <BuildingBank size={24} />
           <Text className="bold-text">Banking</Text>
         </Group>
-        <Button variant="outline" component={Link} to="/login">
+        <Button variant="outline" component={Link} to="/login" color="green">
           Sign in
         </Button>
       </Group>

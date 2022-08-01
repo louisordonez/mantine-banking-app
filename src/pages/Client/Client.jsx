@@ -26,6 +26,8 @@ const DisplayContent = () => {
       return <Text>Transactions</Text>;
     case 'settings':
       return <Text>Settings</Text>;
+    default:
+      window.location.assign('/dashboard');
   }
 };
 
@@ -49,10 +51,7 @@ const Client = () => {
       <AppShell
         styles={{
           main: {
-            background:
-              theme.colorScheme === 'dark'
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
+            background: theme.colors.gray[0],
           },
         }}
         navbarOffsetBreakpoint="sm"
@@ -64,7 +63,6 @@ const Client = () => {
             hidden={!opened}
             width={{ sm: 200, lg: 300 }}
           >
-            <Navbar.Section></Navbar.Section>
             <Navbar.Section grow mt="md">
               {showNavbarLinks()}
             </Navbar.Section>
