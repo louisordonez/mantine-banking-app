@@ -19,7 +19,7 @@ const AdminNavbarLinks = ({ onOpened }) => {
     } else {
       setActive(findIndex);
     }
-  }, []);
+  }, [params.client]);
 
   return (
     <>
