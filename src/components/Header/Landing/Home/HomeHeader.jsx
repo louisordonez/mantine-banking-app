@@ -7,7 +7,13 @@ const HomeHeader = () => {
   return (
     <>
       <Group position="apart" className="home-header-container">
-        <Group spacing={6} className="cursor-pointer">
+        <Group
+          spacing={6}
+          className="cursor-pointer"
+          style={{ textDecoration: 'none', color: 'black' }}
+          component={Link}
+          to="/"
+        >
           <BuildingBank size={24} />
           <Text className="bold-text">Banking</Text>
         </Group>
