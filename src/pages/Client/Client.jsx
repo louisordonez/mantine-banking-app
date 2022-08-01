@@ -30,6 +30,11 @@ const Client = () => {
     return <AdminNavbarLinks onOpened={handleOpened} />;
   };
 
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    window.location.assign('/login');
+  };
+
   return (
     <>
       <AppShell
@@ -47,7 +52,7 @@ const Client = () => {
               {showNavbarLinks()}
             </Navbar.Section>
             <Navbar.Section>
-              <NavLink label="Log out" icon={<Logout size={16} />} />
+              <NavLink label="Log out" icon={<Logout size={16} />} onClick={(e) => handleLogOut(e)} />
             </Navbar.Section>
           </Navbar>
         }
