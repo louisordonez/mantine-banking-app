@@ -5,7 +5,7 @@ import { BuildingBank } from 'tabler-icons-react';
 const HomeHeader = () => {
   return (
     <>
-      <Group position="apart" className="landing-header-container">
+      <Group position="apart" className="home-header-container">
         <Group spacing={6} className="cursor-pointer">
           <BuildingBank size={24} />
           <Text className="bold-text">Banking</Text>
