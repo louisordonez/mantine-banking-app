@@ -23,7 +23,6 @@ const AdminNavbarLinks = ({ onOpened }) => {
 
   return (
     <>
-      {console.log(active)}
       {ADMIN_NAVBAR_LINKS_DATA.map((item, index) => {
         return (
           <NavLink
