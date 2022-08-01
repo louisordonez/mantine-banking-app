@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ADMIN_NAVBAR_LINKS } from '../../../../services/constants/AdminNavbarLinks';
-import { useParams } from 'react-router-dom';
 
-const AdminNavbarLinks = () => {
+const AdminNavbarLinks = ({ onOpened }) => {
   let params = useParams();
   let navigate = useNavigate();
 
@@ -23,6 +22,7 @@ const AdminNavbarLinks = () => {
             onClick={() => {
               setActive(index);
               navigate(`/client/${item.link}`);
+              onOpened();
             }}
           />
         );

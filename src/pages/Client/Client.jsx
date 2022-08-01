@@ -24,8 +24,10 @@ const Client = () => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
 
+  const handleOpened = () => setOpened((o) => !o);
+
   const showNavbarLinks = () => {
-    return <AdminNavbarLinks />;
+    return <AdminNavbarLinks onOpened={handleOpened} />;
   };
 
   return (
@@ -53,13 +55,7 @@ const Client = () => {
           <Header height={70} p="md">
             <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
               <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                <Burger
-                  opened={opened}
-                  onClick={() => setOpened((o) => !o)}
-                  size="sm"
-                  color={theme.colors.gray[6]}
-                  mr="xl"
-                />
+                <Burger opened={opened} onClick={handleOpened} size="sm" color={theme.colors.gray[6]} mr="xl" />
               </MediaQuery>
               <ClientHeader />
             </div>
