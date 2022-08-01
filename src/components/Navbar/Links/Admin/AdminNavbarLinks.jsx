@@ -7,7 +7,9 @@ const AdminNavbarLinks = ({ onOpened }) => {
   let params = useParams();
   let navigate = useNavigate();
 
-  const [active, setActive] = useState(ADMIN_NAVBAR_LINKS_DATA.findIndex((items) => items.link === params.client));
+  const [active, setActive] = useState(
+    ADMIN_NAVBAR_LINKS_DATA.findIndex((items) => items.link === params.client)
+  );
 
   return (
     <>
