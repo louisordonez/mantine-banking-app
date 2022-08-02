@@ -22,7 +22,7 @@ const Client = () => {
 
   const [opened, setOpened] = useState(false);
 
-  const DisplayContent = () => {
+  const useDisplayContent = () => {
     let params = useParams();
 
     switch (params.client) {
@@ -98,7 +98,7 @@ const Client = () => {
           </Header>
         }
       >
-        {DisplayContent()}
+        {useDisplayContent()}
       </AppShell>
     </>
   );
