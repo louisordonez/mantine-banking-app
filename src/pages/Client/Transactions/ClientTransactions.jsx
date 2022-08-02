@@ -11,18 +11,14 @@ import {
 } from '@mantine/core';
 import { Search, Dots, InfoCircle } from 'tabler-icons-react';
 import { USER_LIST } from '../../../services/constants/userList';
+import { convertCurrency } from '../../../services/utilities/convertCurrency';
 
 const ClientTransactions = () => {
   const rows = USER_LIST.map((item) => (
     <tr key={item.accountNumber}>
       <td>{item.accountNumber}</td>
       <td>{`${item.firstName} ${item.lastName}`}</td>
-      <td>
-        {item.balance.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'PHP',
-        })}
-      </td>
+      <td>{convertCurrency(item.balance)}</td>
       <td>
         <Group>
           <Menu transition="pop" withArrow position="bottom-end">

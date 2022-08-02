@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import {
   Search,
+  Plus,
   Dots,
   ArrowBarToDown,
   ArrowBarToUp,
@@ -20,18 +21,14 @@ import {
   Trash,
 } from 'tabler-icons-react';
 import { USER_LIST } from '../../../services/constants/userList';
+import { convertCurrency } from '../../../services/utilities/convertCurrency';
 
 const ClientUsers = () => {
   const rows = USER_LIST.map((item) => (
     <tr key={item.accountNumber}>
       <td>{item.accountNumber}</td>
       <td>{`${item.firstName} ${item.lastName}`}</td>
-      <td>
-        {item.balance.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'PHP',
-        })}
-      </td>
+      <td>{convertCurrency(item.balance)}</td>
       <td>
         <Group>
           <Menu transition="pop" withArrow position="bottom-end">
@@ -65,7 +62,9 @@ const ClientUsers = () => {
       <Container my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group position="right" mb={16}>
-            <Button color="green">Create user</Button>
+            <Button color="green" leftIcon={<Plus />}>
+              Create user
+            </Button>
           </Group>
           <TextInput
             placeholder="Enter account number"
