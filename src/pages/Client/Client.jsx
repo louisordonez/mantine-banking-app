@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import { Logout } from 'tabler-icons-react';
 import ClientHeader from '../../components/Header/Client/ClientHeader';
-import ClientDashboard from './Dashboard/ClientDashboard';
+import ClientAdminDashboard from './Dashboard/Admin/ClientAdminDashboard';
 import ClientUsers from './Users/ClientUsers';
 import ClientTransactions from './Transactions/ClientTransactions';
 import ClientSettings from './Settings/ClientSettings';
@@ -27,7 +27,7 @@ const Client = () => {
 
     switch (params.client) {
       case 'dashboard':
-        return <ClientDashboard />;
+        return <ClientAdminDashboard />;
       case 'users':
         return <ClientUsers />;
       case 'transactions':
