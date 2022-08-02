@@ -1,3 +1,7 @@
-export const convertDate = (date) => {
-  return date.toLocaleString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+export const convertDate = (datetime) => {
+  return datetime.toLocaleString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric',
+  });
 };

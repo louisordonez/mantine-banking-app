@@ -12,9 +12,9 @@ import {
 } from '@mantine/core';
 import {
   Search,
+  Dots,
   ArrowBarToDown,
   ArrowBarToUp,
-  Dots,
   ArrowsRightLeft,
   Pencil,
   Trash,
@@ -78,7 +78,7 @@ const ClientUsers = () => {
                 <th>Account Number</th>
                 <th>Name</th>
                 <th>Balance</th>
-                <th>Actions</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>{rows}</tbody>
