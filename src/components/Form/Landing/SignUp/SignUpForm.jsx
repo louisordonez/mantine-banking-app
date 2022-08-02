@@ -19,7 +19,7 @@ import { convertDate } from '../../../../services/utilities/convertDate';
 const SignUpForm = () => {
   return (
     <>
-      <Container size={420} my={40}>
+      <Container size={480} my={40}>
         <Center>
           <Group
             spacing={6}
@@ -51,17 +51,15 @@ const SignUpForm = () => {
           </Anchor>
         </Text>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput label="First Name" required />
-          <TextInput label="Last Name" required mt="md" />
-          <DatePicker
-            label="Birthdate"
-            required
-            mt="md"
-            inputFormat="MM/DD/YYYY"
-          />
+          <Group grow>
+            <TextInput label="First Name" required />
+            <TextInput label="Last Name" required />
+          </Group>
           <TextInput label="Email" required mt="md" />
-          <PasswordInput label="Password" required mt="md" />
-          <PasswordInput label="Confirm Password" required mt="md" />
+          <Group grow>
+            <PasswordInput label="Password" required mt="md" />
+            <PasswordInput label="Confirm Password" required mt="md" />
+          </Group>
           <Button fullWidth mt="xl" color="green">
             Sign up
           </Button>
