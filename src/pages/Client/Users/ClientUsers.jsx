@@ -14,7 +14,7 @@ import {
   ArrowBarToDown,
   ArrowBarToUp,
   Dots,
-  ArrowsLeftRight,
+  ArrowsRightLeft,
   Pencil,
   Trash,
 } from 'tabler-icons-react';
@@ -44,7 +44,7 @@ const ClientUsers = () => {
                 Withdraw
               </Menu.Item>
               <Menu.Item icon={<ArrowBarToUp size={16} />}>Deposit</Menu.Item>
-              <Menu.Item icon={<ArrowsLeftRight size={16} />}>
+              <Menu.Item icon={<ArrowsRightLeft size={16} />}>
                 Transfer
               </Menu.Item>
               <Menu.Item icon={<Pencil size={16} />}>Edit</Menu.Item>
