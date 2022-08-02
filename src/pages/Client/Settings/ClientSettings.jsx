@@ -1,8 +1,12 @@
 import React from 'react';
-import { Text } from '@mantine/core';
+import ClientSettingsForm from '../../../components/Form/Client/Settings/ClientSettingsForm';
 
 const ClientSettings = () => {
-  return <Text>ClientSettings</Text>;
+  return (
+    <>
+      <ClientSettingsForm />
+    </>
+  );
 };
 
 export default ClientSettings;
