@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Title,
   TextInput,
+  Button,
   Container,
   Paper,
   Group,
@@ -63,10 +64,13 @@ const ClientUsers = () => {
       <Title>Users</Title>
       <Container my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <Group position="right" mb={16}>
+            <Button color="green">Create user</Button>
+          </Group>
           <TextInput
             placeholder="Enter account number"
             icon={<Search size={16} />}
-            mb={12}
+            mb={16}
           ></TextInput>
           <Table highlightOnHover>
             <thead>
