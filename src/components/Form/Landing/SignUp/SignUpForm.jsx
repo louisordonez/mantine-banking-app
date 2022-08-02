@@ -11,10 +11,8 @@ import {
   Group,
   Center,
 } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
 import { BuildingBank } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
-import { convertDate } from '../../../../services/utilities/convertDate';
 
 const SignUpForm = () => {
   return (
