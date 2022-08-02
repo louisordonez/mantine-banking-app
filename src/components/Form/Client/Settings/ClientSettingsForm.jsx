@@ -3,7 +3,6 @@ import {
   TextInput,
   PasswordInput,
   Paper,
-  Title,
   Container,
   Button,
   Group,
@@ -12,7 +11,6 @@ import {
 const ClientSettingsForm = () => {
   return (
     <>
-      <Title>Settings</Title>
       <Container size={480} my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group grow>
