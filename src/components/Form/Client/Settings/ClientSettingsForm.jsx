@@ -2,17 +2,12 @@ import React from 'react';
 import {
   TextInput,
   PasswordInput,
-  Anchor,
   Paper,
   Title,
-  Text,
   Container,
   Button,
   Group,
-  Center,
 } from '@mantine/core';
-import { BuildingBank } from 'tabler-icons-react';
-import { Link } from 'react-router-dom';
 
 const ClientSettingsForm = () => {
   return (
