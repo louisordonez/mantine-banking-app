@@ -18,6 +18,10 @@ import ClientSettings from './Settings/ClientSettings';
 import NavbarLinks from '../../components/Navbar/Links/NavbarLinks';
 
 const Client = () => {
+  const theme = useMantineTheme();
+
+  const [opened, setOpened] = useState(false);
+
   const DisplayContent = () => {
     let params = useParams();
 
@@ -34,10 +38,6 @@ const Client = () => {
         window.location.assign('/dashboard');
     }
   };
-
-  const theme = useMantineTheme();
-
-  const [opened, setOpened] = useState(false);
 
   const handleOpened = () => setOpened((o) => !o);
 
