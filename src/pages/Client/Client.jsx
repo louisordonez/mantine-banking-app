@@ -17,25 +17,26 @@ import ClientTransactions from './Transactions/ClientTransactions';
 import ClientSettings from './Settings/ClientSettings';
 import NavbarLinks from '../../components/Navbar/Links/NavbarLinks';
 
-const DisplayContent = () => {
-  let params = useParams();
-
-  switch (params.client) {
-    case 'dashboard':
-      return <ClientDashboard />;
-    case 'users':
-      return <ClientUsers />;
-    case 'transactions':
-      return <ClientTransactions />;
-    case 'settings':
-      return <ClientSettings />;
-    default:
-      window.location.assign('/dashboard');
-  }
-};
-
 const Client = () => {
+  const DisplayContent = () => {
+    let params = useParams();
+
+    switch (params.client) {
+      case 'dashboard':
+        return <ClientDashboard />;
+      case 'users':
+        return <ClientUsers />;
+      case 'transactions':
+        return <ClientTransactions />;
+      case 'settings':
+        return <ClientSettings />;
+      default:
+        window.location.assign('/dashboard');
+    }
+  };
+
   const theme = useMantineTheme();
+
   const [opened, setOpened] = useState(false);
 
   const handleOpened = () => setOpened((o) => !o);
