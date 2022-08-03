@@ -84,18 +84,11 @@ const Home = () => {
           </h1>
 
           <Text className={classes.description} color="dimmed">
-            Easy withdrawals, deposits, and transfers. Create and start your
-            savings account with Banking now.
+            Easy withdrawals, deposits, and transfers. Create and start your savings account with Banking now.
           </Text>
 
           <Group className={classes.controls}>
-            <Button
-              size="xl"
-              className={classes.control}
-              color="green"
-              component={Link}
-              to="/signup"
-            >
+            <Button size="xl" className={classes.control} color="green" component={Link} to="/signup">
               Get started
             </Button>
           </Group>

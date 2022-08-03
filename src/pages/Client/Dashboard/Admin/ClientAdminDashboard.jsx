@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Title,
-  Container,
-  Paper,
-  Group,
-  Table,
-  Text,
-  Anchor,
-} from '@mantine/core';
+import { Title, Container, Paper, Group, Table, Text, Anchor } from '@mantine/core';
 import { Users, Cash } from 'tabler-icons-react';
 
 const ClientAdminDashboard = () => {

@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Title,
-  Container,
-  Paper,
-  Group,
-  TextInput,
-  Table,
-  Menu,
-  ActionIcon,
-} from '@mantine/core';
+import { Title, Container, Paper, Group, TextInput, Table, Menu, ActionIcon } from '@mantine/core';
 import { Search, Dots, InfoCircle } from 'tabler-icons-react';
 import { USER_LIST } from '../../../services/constants/userList';
 import { convertCurrency } from '../../../services/utilities/convertCurrency';
@@ -41,11 +32,7 @@ const ClientTransactions = () => {
       <Title>Transactions</Title>
       <Container my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput
-            placeholder="Enter reference number"
-            icon={<Search size={16} />}
-            mb={16}
-          ></TextInput>
+          <TextInput placeholder="Enter reference number" icon={<Search size={16} />} mb={16}></TextInput>
           <Table highlightOnHover>
             <thead>
               <tr>

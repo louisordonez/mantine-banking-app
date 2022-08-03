@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-  Title,
-  Container,
-  Paper,
-  Group,
-  Table,
-  Text,
-  Stack,
-  Button,
-  Menu,
-  ActionIcon,
-} from '@mantine/core';
+import { Title, Container, Paper, Group, Table, Text, Stack, Button, Menu, ActionIcon } from '@mantine/core';
 import {
   User,
   Wallet,

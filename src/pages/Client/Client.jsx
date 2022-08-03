@@ -1,14 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  AppShell,
-  Navbar,
-  Header,
-  MediaQuery,
-  Burger,
-  useMantineTheme,
-  NavLink,
-} from '@mantine/core';
+import { AppShell, Navbar, Header, MediaQuery, Burger, useMantineTheme, NavLink } from '@mantine/core';
 import { Logout } from 'tabler-icons-react';
 import ClientHeader from '../../components/Header/Client/ClientHeader';
 import ClientAdminDashboard from './Dashboard/Admin/ClientAdminDashboard';
@@ -62,37 +54,20 @@ const Client = () => {
         navbarOffsetBreakpoint="sm"
         asideOffsetBreakpoint="sm"
         navbar={
-          <Navbar
-            p="md"
-            hiddenBreakpoint="sm"
-            hidden={!opened}
-            width={{ sm: 200, lg: 300 }}
-          >
+          <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
             <Navbar.Section grow mt="md">
               {showNavbarLinks()}
             </Navbar.Section>
             <Navbar.Section>
-              <NavLink
-                label="Log out"
-                icon={<Logout size={16} />}
-                onClick={(e) => handleLogOut(e)}
-              />
+              <NavLink label="Log out" icon={<Logout size={16} />} onClick={(e) => handleLogOut(e)} />
             </Navbar.Section>
           </Navbar>
         }
         header={
           <Header height={70} p="md">
-            <div
-              style={{ display: 'flex', alignItems: 'center', height: '100%' }}
-            >
+            <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
               <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                <Burger
-                  opened={opened}
-                  onClick={handleOpened}
-                  size="sm"
-                  color={theme.colors.gray[6]}
-                  mr="xl"
-                />
+                <Burger opened={opened} onClick={handleOpened} size="sm" color={theme.colors.gray[6]} mr="xl" />
               </MediaQuery>
               <ClientHeader />
             </div>
