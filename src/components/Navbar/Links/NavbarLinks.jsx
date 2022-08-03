@@ -10,9 +10,7 @@ const NavbarLinks = ({ onOpened }) => {
   const [active, setActive] = useState(null);
 
   useEffect(() => {
-    const findIndex = ADMIN_NAVBAR_LINKS_DATA.findIndex(
-      (items) => items.link === params.client
-    );
+    const findIndex = ADMIN_NAVBAR_LINKS_DATA.findIndex((items) => items.link === params.client);
 
     if (findIndex === -1) {
       setActive(0);

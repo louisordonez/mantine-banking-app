@@ -1,6 +1,5 @@
-export const convertCurrency = (amount) => {
-  return amount.toLocaleString('en-US', {
+export const convertCurrency = (amount) =>
+  amount.toLocaleString('en-US', {
     style: 'currency',
     currency: 'PHP',
   });
-};
