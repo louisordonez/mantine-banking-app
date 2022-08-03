@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  TextInput,
-  PasswordInput,
-  Paper,
-  Container,
-  Button,
-  Group,
-} from '@mantine/core';
+import { TextInput, PasswordInput, Paper, Container, Button, Group } from '@mantine/core';
 
 const ClientSettingsForm = () => {
   return (
