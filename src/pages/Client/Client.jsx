@@ -9,6 +9,7 @@ import ClientUsers from './Users/ClientUsers';
 import ClientTransactions from './Transactions/ClientTransactions';
 import ClientSettings from './Settings/ClientSettings';
 import NavbarLinks from '../../components/Navbar/Links/NavbarLinks';
+import { removeLocalStorageItem } from '../../services/utilities/localStorage';
 
 const Client = () => {
   const theme = useMantineTheme();
@@ -40,6 +41,7 @@ const Client = () => {
 
   const handleLogOut = (e) => {
     e.preventDefault();
+    removeLocalStorageItem('userData');
     window.location.assign('/login');
   };
 
