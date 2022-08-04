@@ -1,8 +1,8 @@
 export const USER_LIST = [
   {
     accountNumber: 1656904372,
-    firstName: 'Admin',
-    lastName: 'Admin',
+    firstName: 'admin',
+    lastName: 'admin',
     email: 'admin@email.com',
     password: 'admin',
     balance: 15000.0,

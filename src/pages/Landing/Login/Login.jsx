@@ -10,8 +10,8 @@ const Login = () => {
   const [isError, setIsError] = useState(false);
 
   const handleLogin = (loginData) => {
-    const userDataLocalStorage = getLocalStorageItem('userList');
-    const findUser = userDataLocalStorage.find(
+    const userListLocalStorage = getLocalStorageItem('userList');
+    const findUser = userListLocalStorage.find(
       (user) => user.email === loginData.email && user.password === loginData.password
     );
 
