@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextInput, PasswordInput, Paper, Container, Button, Group } from '@mantine/core';
+import { showNotificationToast } from '../../../../services/utilities/showNotificationToast';
+import { getLocalStorageItem, assignLocalStorageItem } from '../../../../services/utilities/localStorage';
 
 const ClientSettingsForm = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [isFirstNameError, setIsFirstNameError] = useState(false);
+  const [isLastNameError, setIsLastNameError] = useState(false);
+  const [isEmailError, setIsEmailError] = useState(false);
+  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [isConfirmPasswordError, setIsConfirmPasswordError] = useState(false);
+
   return (
     <>
       <Container size={480} my={40}>

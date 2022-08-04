@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, PasswordInput, Paper, Button, Group } from '@mantine/core';
 import { showNotificationToast } from '../../../../services/utilities/showNotificationToast';
-import { getLocalStorageItem } from '../../../../services/utilities/localStorage';
+import { checkPassword, checkEmail, checkName } from '../../../../services/utilities/userDataValidation';
 
 const SignUpForm = ({ onSignUp }) => {
   const [firstName, setFirstName] = useState('');
@@ -31,49 +31,31 @@ const SignUpForm = ({ onSignUp }) => {
   };
 
   const handlePassword = () => {
-    if (password !== '') {
-      if (password !== confirmPassword) {
-        setIsPasswordError(true);
-        setIsConfirmPasswordError(true);
-        showNotificationToast('failed', 'Password and Confirm Password does not match');
-      }
-    } else if (password === '') {
+    const error = checkPassword(password, confirmPassword);
+
+    if (error === 'password') {
       setIsPasswordError(true);
-      showNotificationToast('failed', 'Password cannot be empty');
-    } else {
-      return true;
+    } else if (error === 'passwordConfirmPassword') {
+      setIsPasswordError(true);
+      setIsConfirmPasswordError(true);
     }
   };
 
   const handleEmail = () => {
-    const validate = /^\S+@\S+$/.test(email);
-    const userListLocalStorage = getLocalStorageItem('userList');
-    const findUser = userListLocalStorage.find((user) => user.email === email);
-
-    if (validate === true) {
-      if (findUser) {
-        setIsEmailError(true);
-        showNotificationToast('failed', 'Email already taken');
-      } else {
-        return true;
-      }
-    } else {
-      setIsEmailError(true);
-      showNotificationToast('failed', 'Invalid Email');
-    }
+    const error = checkEmail(email);
+    return error === 'email' ? setIsEmailError(true) : true;
   };
 
   const handleName = () => {
-    if (firstName === '' && lastName === '') {
+    const error = checkName(firstName, lastName);
+
+    if (error === 'fullName') {
       setIsFirstNameError(true);
       setIsLastNameError(true);
-      showNotificationToast('failed', 'First Name and Last Name cannot be empty');
-    } else if (firstName === '') {
+    } else if (error === 'firstName') {
       setIsFirstNameError(true);
-      showNotificationToast('failed', 'First Name cannot be empty');
-    } else if (lastName === '') {
+    } else if (error === 'lastName') {
       setIsLastNameError(true);
-      showNotificationToast('failed', 'Last Name cannot be empty');
     } else {
       return true;
     }
@@ -81,7 +63,9 @@ const SignUpForm = ({ onSignUp }) => {
 
   const handleSubmit = () => {
     const checkValidation = () => {
-      return handleName() || handleEmail() || handlePassword() ? true : false;
+      handleName();
+      handleEmail();
+      handlePassword();
     };
 
     if (checkValidation()) {
