@@ -9,7 +9,8 @@ import ClientUsers from './Users/ClientUsers';
 import ClientTransactions from './Transactions/ClientTransactions';
 import ClientSettings from './Settings/ClientSettings';
 import NavbarLinks from '../../components/Navbar/Links/NavbarLinks';
-import { getLocalStorageItem, removeLocalStorageItem } from '../../services/utilities/localStorage';
+import { getRole } from '../../services/utilities/getRole';
+import { removeLocalStorageItem } from '../../services/utilities/localStorage';
 
 const Client = () => {
   const theme = useMantineTheme();
@@ -18,11 +19,10 @@ const Client = () => {
 
   const useDisplayContent = () => {
     let params = useParams();
-    const userDataLocalStorage = getLocalStorageItem('userData');
 
     switch (params.client) {
       case 'dashboard':
-        return userDataLocalStorage[0].role === 'admin' ? <ClientAdminDashboard /> : <ClientUserDashboard />;
+        return getRole() === 'admin' ? <ClientAdminDashboard /> : <ClientUserDashboard />;
       case 'users':
         return <ClientUsers />;
       case 'transactions':
