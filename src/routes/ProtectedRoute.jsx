@@ -1,11 +1,9 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { getLocalStorageItem } from '../services/utilities/localStorage';
+import { isLoggedIn } from '../services/utilities/isLoggedIn';
 
 const ProtectedRoute = () => {
-  const userDataLocalStorage = getLocalStorageItem('userData');
-
-  return userDataLocalStorage !== null ? <Outlet /> : <Navigate to="/" />;
+  return isLoggedIn() === true ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;
