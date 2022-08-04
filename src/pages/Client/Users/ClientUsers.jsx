@@ -39,7 +39,7 @@ const ClientUsers = () => {
       <Container my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group position="right" mb={16}>
-            <Button color="green" leftIcon={<Plus />}>
+            <Button color="green" leftIcon={<Plus size={16} />}>
               Create user
             </Button>
           </Group>

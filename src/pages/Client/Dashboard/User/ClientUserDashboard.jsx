@@ -40,13 +40,13 @@ const ClientUserDashboard = () => {
                 </Group>
               </Stack>
               <Stack>
-                <Button color="green" leftIcon={<ArrowBarToDown />}>
+                <Button color="green" leftIcon={<ArrowBarToDown size={16} />}>
                   Withdraw
                 </Button>
-                <Button color="green" leftIcon={<ArrowBarToUp />}>
+                <Button color="green" leftIcon={<ArrowBarToUp size={16} />}>
                   Deposit
                 </Button>
-                <Button color="green" leftIcon={<ArrowsRightLeft />}>
+                <Button color="green" leftIcon={<ArrowsRightLeft size={16} />}>
                   Transfer
                 </Button>
               </Stack>
@@ -73,7 +73,7 @@ const ClientUserDashboard = () => {
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group position="apart">
             <Text>Expenses</Text>
-            <Button color="green" leftIcon={<Plus />}>
+            <Button color="green" leftIcon={<Plus size={16} />}>
               Add Expense
             </Button>
           </Group>
