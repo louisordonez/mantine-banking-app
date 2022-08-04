@@ -5,8 +5,11 @@ import { BuildingBank } from 'tabler-icons-react';
 import LoginForm from '../../../components/Form/Landing/Login/LoginForm';
 import { assignLocalStorageItem, getLocalStorageItem } from '../../../services/utilities/localStorage';
 import { showNotificationToast } from '../../../services/utilities/showNotificationToast';
+import { useRedirect } from '../../../services/utilities/useRedirect';
 
 const Login = () => {
+  useRedirect();
+
   const [isError, setIsError] = useState(false);
 
   const handleLogin = (loginData) => {
@@ -20,13 +23,15 @@ const Login = () => {
       showNotificationToast('failed', 'Check your email and password');
     } else {
       setIsError(false);
-      assignLocalStorageItem('userData', {
-        accountNumber: findUser.accountNumber,
-        firstName: findUser.firstName,
-        lastName: findUser.lastName,
-        email: findUser.email,
-        role: findUser.role,
-      });
+      assignLocalStorageItem('userData', [
+        {
+          accountNumber: findUser.accountNumber,
+          firstName: findUser.firstName,
+          lastName: findUser.lastName,
+          email: findUser.email,
+          role: findUser.role,
+        },
+      ]);
 
       window.location.assign('/dashboard');
     }

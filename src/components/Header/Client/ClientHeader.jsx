@@ -11,7 +11,7 @@ const ClientHeader = () => {
         style={{ textDecoration: 'none', color: 'black' }}
         onClick={(e) => {
           e.preventDefault();
-          window.location.assign('/client/dashboard');
+          window.location.assign('/');
         }}
       >
         <BuildingBank size={24} />

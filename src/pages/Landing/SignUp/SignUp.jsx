@@ -4,8 +4,11 @@ import { Anchor, Title, Text, Container, Group, Center } from '@mantine/core';
 import { BuildingBank } from 'tabler-icons-react';
 import SignUpForm from '../../../components/Form/Landing/SignUp/SignUpForm';
 import { assignLocalStorageItem, getLocalStorageItem } from '../../../services/utilities/localStorage';
+import { useRedirect } from '../../../services/utilities/useRedirect';
 
 const SignUp = () => {
+  useRedirect();
+
   const handleSignUp = (signUpInfo) => {
     const userListLocalStorage = getLocalStorageItem('userList');
 

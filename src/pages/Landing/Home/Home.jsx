@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createStyles, Container, Text, Button, Group } from '@mantine/core';
 import HomeHeader from '../../../components/Header/Landing/Home/HomeHeader';
+import { useRedirect } from '../../../services/utilities/useRedirect';
 
 const BREAKPOINT = '@media (max-width: 755px)';
 
@@ -69,7 +70,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Home = () => {
+  useRedirect();
+
   const { classes } = useStyles();
+
   return (
     <>
       <HomeHeader />
