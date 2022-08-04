@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   AppShell,
@@ -28,10 +28,30 @@ const Client = () => {
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false);
+  const [userData, setUserData] = useState(getLocalStorageItem('userData')[0]);
+  const [userAvatar, setUserAvatar] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userAccountNumber, setUserAccountNumber] = useState('');
 
-  const userData = getLocalStorageItem('userData')[0];
-  const userIntitials = `${userData.firstName.charAt(0)}${userData.lastName.charAt(0)}`;
-  const userName = `${userData.firstName} ${userData.lastName}`;
+  useEffect(() => {
+    setUserAvatar(`${userData.firstName.charAt(0)}${userData.lastName.charAt(0)}`);
+    setUserName(`${userData.firstName} ${userData.lastName}`);
+    setUserAccountNumber(userData.accountNumber);
+  }, [userData]);
+
+  const handleOpened = () => setOpened((o) => !o);
+
+  const handleUserData = (userData) => setUserData(userData);
+
+  const showNavbarLinks = () => {
+    return <NavbarLinks onOpened={handleOpened} />;
+  };
+
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    removeLocalStorageItem('userData');
+    window.location.assign('/login');
+  };
 
   const useDisplayContent = () => {
     let params = useParams();
@@ -44,22 +64,10 @@ const Client = () => {
       case 'transactions':
         return <ClientTransactions />;
       case 'settings':
-        return <ClientSettings />;
+        return <ClientSettings onUserData={handleUserData} />;
       default:
         window.location.assign('/dashboard');
     }
-  };
-
-  const handleOpened = () => setOpened((o) => !o);
-
-  const showNavbarLinks = () => {
-    return <NavbarLinks onOpened={handleOpened} />;
-  };
-
-  const handleLogOut = (e) => {
-    e.preventDefault();
-    removeLocalStorageItem('userData');
-    window.location.assign('/login');
   };
 
   return (
@@ -75,14 +83,13 @@ const Client = () => {
         navbar={
           <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
             <Navbar.Section>
-              <Center>
-                <Stack>
-                  <Avatar color="green" size="xl">
-                    {userIntitials}
-                  </Avatar>
-                  <Text weight={700}>{userName}</Text>
-                </Stack>
-              </Center>
+              <Stack align="center">
+                <Avatar color="green" size="xl">
+                  {userAvatar}
+                </Avatar>
+                <Text weight={700}>{userName}</Text>
+                <Text size="sm">{userAccountNumber}</Text>
+              </Stack>
             </Navbar.Section>
             <Navbar.Section grow mt="md">
               {showNavbarLinks()}

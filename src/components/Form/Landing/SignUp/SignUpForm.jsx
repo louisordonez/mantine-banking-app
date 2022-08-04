@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, PasswordInput, Paper, Button, Group } from '@mantine/core';
 import { showNotificationToast } from '../../../../services/utilities/showNotificationToast';
-import { checkPassword, checkEmail, checkName } from '../../../../services/utilities/userDataValidation';
+import { checkPassword, checkEmail } from '../../../../services/utilities/userDataValidation';
 
 const SignUpForm = ({ onSignUp }) => {
   const [firstName, setFirstName] = useState('');
@@ -10,8 +10,6 @@ const SignUpForm = ({ onSignUp }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [isFirstNameError, setIsFirstNameError] = useState(false);
-  const [isLastNameError, setIsLastNameError] = useState(false);
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
   const [isConfirmPasswordError, setIsConfirmPasswordError] = useState(false);
@@ -23,49 +21,42 @@ const SignUpForm = ({ onSignUp }) => {
     setPassword('');
     setConfirmPassword('');
 
-    setIsFirstNameError(false);
-    setIsLastNameError(false);
     setIsEmailError(false);
     setIsPasswordError(false);
     setIsConfirmPasswordError(false);
   };
 
   const handlePassword = () => {
-    const error = checkPassword(password, confirmPassword);
+    const valid = checkPassword(password, confirmPassword);
 
-    if (error === 'password') {
-      setIsPasswordError(true);
-    } else if (error === 'passwordConfirmPassword') {
+    if (valid) {
+      setIsPasswordError(false);
+      setIsConfirmPasswordError(false);
+      return true;
+    } else {
       setIsPasswordError(true);
       setIsConfirmPasswordError(true);
+      return false;
     }
   };
 
   const handleEmail = () => {
-    const error = checkEmail(email);
-    return error === 'email' ? setIsEmailError(true) : true;
-  };
+    const valid = checkEmail(email);
 
-  const handleName = () => {
-    const error = checkName(firstName, lastName);
-
-    if (error === 'fullName') {
-      setIsFirstNameError(true);
-      setIsLastNameError(true);
-    } else if (error === 'firstName') {
-      setIsFirstNameError(true);
-    } else if (error === 'lastName') {
-      setIsLastNameError(true);
-    } else {
+    if (valid) {
+      setIsEmailError(false);
       return true;
+    } else {
+      setIsEmailError(true);
+      return false;
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     const checkValidation = () => {
-      handleName();
-      handleEmail();
-      handlePassword();
+      return handleEmail() && handlePassword() ? true : false;
     };
 
     if (checkValidation()) {
@@ -85,53 +76,43 @@ const SignUpForm = ({ onSignUp }) => {
 
   return (
     <>
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <Group grow>
+      <form onSubmit={handleSubmit}>
+        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <Group grow>
+            <TextInput label="First Name" required onChange={(e) => setFirstName(e.target.value)} value={firstName} />
+            <TextInput label="Last Name" required onChange={(e) => setLastName(e.target.value)} value={lastName} />
+          </Group>
           <TextInput
-            label="First Name"
-            required
-            onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
-            error={isFirstNameError}
-          />
-          <TextInput
-            label="Last Name"
-            required
-            onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
-            error={isLastNameError}
-          />
-        </Group>
-        <TextInput
-          label="Email"
-          required
-          mt="md"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          error={isEmailError}
-        />
-        <Group grow>
-          <PasswordInput
-            label="Password"
+            label="Email"
             required
             mt="md"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            error={isPasswordError}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            error={isEmailError}
           />
-          <PasswordInput
-            label="Confirm Password"
-            required
-            mt="md"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            value={confirmPassword}
-            error={isConfirmPasswordError}
-          />
-        </Group>
-        <Button fullWidth mt="xl" color="green" onClick={handleSubmit}>
-          Sign up
-        </Button>
-      </Paper>
+          <Group grow>
+            <PasswordInput
+              label="Password"
+              required
+              mt="md"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              error={isPasswordError}
+            />
+            <PasswordInput
+              label="Confirm Password"
+              required
+              mt="md"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
+              error={isConfirmPasswordError}
+            />
+          </Group>
+          <Button fullWidth mt="xl" color="green" type="submit">
+            Sign up
+          </Button>
+        </Paper>
+      </form>
     </>
   );
 };
