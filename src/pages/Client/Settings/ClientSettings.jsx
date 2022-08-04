@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Title } from '@mantine/core';
 import ClientSettingsForm from '../../../components/Form/Client/Settings/ClientSettingsForm';
 import { getLocalStorageItem, assignLocalStorageItem } from '../../../services/utilities/localStorage';
+import { getRole } from '../../../services/utilities/getRole';
 
 const ClientSettings = ({ onUserData }) => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
@@ -27,7 +28,7 @@ const ClientSettings = ({ onUserData }) => {
         email: userData.email,
         firstName: userData.firstName,
         lastName: userData.lastName,
-        role: 'user',
+        role: getRole(),
       },
     ]);
     assignLocalStorageItem('userList', userList);
