@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Title, Container, Paper, Group, Table, Text, Stack, Button, Menu, ActionIcon } from '@mantine/core';
 import {
   User,
@@ -14,8 +14,19 @@ import {
   Trash,
 } from 'tabler-icons-react';
 import { convertCurrency } from '../../../../services/utilities/convertCurrency';
+import { getLocalStorageItem } from '../../../../services/utilities/localStorage';
 
-const ClientUserDashboard = () => {
+const ClientUserDashboard = ({ userAccountNumber }) => {
+  const userDataLocalStorage = getLocalStorageItem('userData')[0];
+  const userListLocalStorage = getLocalStorageItem('userList');
+  const findUser = userListLocalStorage.find((user) => user.accountNumber === userDataLocalStorage.accountNumber);
+
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    setBalance(findUser.balance);
+  }, [balance]);
+
   return (
     <>
       <Title>Dashboard</Title>
@@ -28,14 +39,14 @@ const ClientUserDashboard = () => {
                   <User />
                   <Text>
                     Account Number
-                    <Text>123</Text>
+                    <Text>{userAccountNumber}</Text>
                   </Text>
                 </Group>
                 <Group>
                   <Wallet />
                   <Text>
                     Balance
-                    <Text>{convertCurrency(100)}</Text>
+                    <Text>{convertCurrency(balance)}</Text>
                   </Text>
                 </Group>
               </Stack>
@@ -59,14 +70,14 @@ const ClientUserDashboard = () => {
               <CashBanknote />
               <Text>Calc Expenses</Text>
             </Group>
-            <Text mt={24}>{convertCurrency(100)}</Text>
+            <Text mt={24}>{convertCurrency(84000.0)}</Text>
           </Paper>
           <Paper withBorder shadow="md" p={30} mt={30} radius="md">
             <Group>
               <CashBanknoteOff />
               <Text>Calc Balance</Text>
             </Group>
-            <Text mt={24}>{convertCurrency(-100)}</Text>
+            <Text mt={24}>{convertCurrency(balance - 84000.0)}</Text>
           </Paper>
         </Group>
 
