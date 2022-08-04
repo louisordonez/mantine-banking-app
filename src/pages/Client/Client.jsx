@@ -1,6 +1,18 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { AppShell, Navbar, Header, MediaQuery, Burger, useMantineTheme, NavLink } from '@mantine/core';
+import {
+  AppShell,
+  Navbar,
+  Header,
+  MediaQuery,
+  Burger,
+  useMantineTheme,
+  NavLink,
+  Center,
+  Stack,
+  Avatar,
+  Text,
+} from '@mantine/core';
 import { Logout } from 'tabler-icons-react';
 import ClientHeader from '../../components/Header/Client/ClientHeader';
 import ClientAdminDashboard from './Dashboard/Admin/ClientAdminDashboard';
@@ -10,12 +22,16 @@ import ClientTransactions from './Transactions/ClientTransactions';
 import ClientSettings from './Settings/ClientSettings';
 import NavbarLinks from '../../components/Navbar/Links/NavbarLinks';
 import { getRole } from '../../services/utilities/getRole';
-import { removeLocalStorageItem } from '../../services/utilities/localStorage';
+import { getLocalStorageItem, removeLocalStorageItem } from '../../services/utilities/localStorage';
 
 const Client = () => {
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false);
+
+  const userData = getLocalStorageItem('userData')[0];
+  const userIntitials = `${userData.firstName.charAt(0)}${userData.lastName.charAt(0)}`;
+  const userName = `${userData.firstName} ${userData.lastName}`;
 
   const useDisplayContent = () => {
     let params = useParams();
@@ -58,6 +74,16 @@ const Client = () => {
         asideOffsetBreakpoint="sm"
         navbar={
           <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
+            <Navbar.Section>
+              <Center>
+                <Stack>
+                  <Avatar color="green" size="xl">
+                    {userIntitials}
+                  </Avatar>
+                  <Text weight={700}>{userName}</Text>
+                </Stack>
+              </Center>
+            </Navbar.Section>
             <Navbar.Section grow mt="md">
               {showNavbarLinks()}
             </Navbar.Section>
