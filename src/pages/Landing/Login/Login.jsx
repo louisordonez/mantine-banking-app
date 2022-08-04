@@ -26,7 +26,6 @@ const Login = () => {
         lastName: findUser.lastName,
         email: findUser.email,
         role: findUser.role,
-        isLoggedIn: true,
       });
 
       window.location.assign('/dashboard');
