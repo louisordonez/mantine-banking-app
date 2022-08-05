@@ -11,24 +11,22 @@ const ClientUsers = () => {
       <td>{`${item.firstName} ${item.lastName}`}</td>
       <td>{convertCurrency(item.balance)}</td>
       <td>
-        <Group>
-          <Menu transition="pop" withArrow position="bottom-end">
-            <Menu.Target>
-              <ActionIcon>
-                <Dots size={16} />
-              </ActionIcon>
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Item icon={<ArrowBarToDown size={16} />}>Withdraw</Menu.Item>
-              <Menu.Item icon={<ArrowBarToUp size={16} />}>Deposit</Menu.Item>
-              <Menu.Item icon={<ArrowsRightLeft size={16} />}>Transfer</Menu.Item>
-              <Menu.Item icon={<Pencil size={16} />}>Edit</Menu.Item>
-              <Menu.Item icon={<Trash size={16} />} color="red">
-                Delete
-              </Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
-        </Group>
+        <Menu transition="pop" withArrow position="bottom-end">
+          <Menu.Target>
+            <ActionIcon>
+              <Dots size={16} />
+            </ActionIcon>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item icon={<ArrowBarToDown size={16} />}>Withdraw</Menu.Item>
+            <Menu.Item icon={<ArrowBarToUp size={16} />}>Deposit</Menu.Item>
+            <Menu.Item icon={<ArrowsRightLeft size={16} />}>Transfer</Menu.Item>
+            <Menu.Item icon={<Pencil size={16} />}>Edit</Menu.Item>
+            <Menu.Item icon={<Trash size={16} />} color="red">
+              Delete
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       </td>
     </tr>
   ));

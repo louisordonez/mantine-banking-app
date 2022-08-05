@@ -114,7 +114,7 @@ const ClientSettingsForm = ({ onSettings }) => {
               />
             </Group>
             <Button fullWidth mt="xl" color="green" type="submit">
-              Save
+              Confirm
             </Button>
           </Paper>
         </Container>
