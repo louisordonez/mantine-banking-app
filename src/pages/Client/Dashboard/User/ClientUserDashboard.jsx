@@ -25,7 +25,7 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
 
   useEffect(() => {
     setBalance(findUser.balance);
-  }, [balance]);
+  }, [balance, findUser.balance]);
 
   return (
     <>
