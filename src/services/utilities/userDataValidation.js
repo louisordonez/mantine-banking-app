@@ -5,9 +5,9 @@ export const checkPassword = (password, confirmPassword) => {
   if (password !== confirmPassword) {
     showNotificationToast('failed', 'Password and Confirm Password do not match');
     return false;
-  } else {
-    return true;
   }
+
+  return true;
 };
 
 export const checkEmail = (email) => {
@@ -15,15 +15,15 @@ export const checkEmail = (email) => {
   const userListLocalStorage = getLocalStorageItem('userList');
   const findUser = userListLocalStorage.find((user) => user.email === email);
 
-  if (validate) {
+  if (!validate) {
+    showNotificationToast('failed', 'Invalid Email');
+    return false;
+  } else {
     if (findUser) {
       showNotificationToast('failed', 'Email already taken');
       return false;
     } else {
       return true;
     }
-  } else {
-    showNotificationToast('failed', 'Invalid Email');
-    return false;
   }
 };

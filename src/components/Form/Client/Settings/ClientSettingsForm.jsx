@@ -15,46 +15,24 @@ const ClientSettingsForm = ({ onSettings }) => {
   const [password, setPassword] = useState(findUser.password);
   const [confirmPassword, setConfirmPassword] = useState(findUser.password);
 
-  const [isEmailError, setIsEmailError] = useState(false);
-  const [isPasswordError, setIsPasswordError] = useState(false);
-  const [isConfirmPasswordError, setIsConfirmPasswordError] = useState(false);
-
-  const resetForm = () => {
-    setIsEmailError(false);
-    setIsPasswordError(false);
-    setIsConfirmPasswordError(false);
-  };
-
   const handlePassword = () => {
-    const valid = checkPassword(password, confirmPassword);
-
-    if (valid) {
-      setIsPasswordError(false);
-      setIsConfirmPasswordError(false);
-      return true;
-    } else {
-      setIsPasswordError(true);
-      setIsConfirmPasswordError(true);
-      return false;
-    }
+    return checkPassword(password, confirmPassword);
   };
 
   const handleEmail = () => {
     const validate = /^\S+@\S+$/.test(email);
     const findEmail = userListLocalStorage.find((user) => user.email === email);
 
-    if (validate) {
-      if (findEmail.accountNumber !== userDataLocalStorage.accountNumber) {
-        setIsEmailError(true);
-        showNotificationToast('failed', 'Email already taken');
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      setIsEmailError(true);
+    if (!validate) {
       showNotificationToast('failed', 'Invalid Email');
       return false;
+    } else {
+      if (findEmail === undefined) {
+        return true;
+      } else if (findEmail.email === userDataLocalStorage.email) {
+        showNotificationToast('failed', 'Email already taken');
+        return false;
+      }
     }
   };
 
@@ -73,7 +51,6 @@ const ClientSettingsForm = ({ onSettings }) => {
         email,
         password,
       });
-      resetForm();
       showNotificationToast('success', 'Changes saved');
     }
   };
@@ -87,14 +64,7 @@ const ClientSettingsForm = ({ onSettings }) => {
               <TextInput label="First Name" required onChange={(e) => setFirstName(e.target.value)} value={firstName} />
               <TextInput label="Last Name" required onChange={(e) => setLastName(e.target.value)} value={lastName} />
             </Group>
-            <TextInput
-              label="Email"
-              required
-              mt="md"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              error={isEmailError}
-            />
+            <TextInput label="Email" required mt="md" onChange={(e) => setEmail(e.target.value)} value={email} />
             <Group grow>
               <PasswordInput
                 label="Password"
@@ -102,7 +72,6 @@ const ClientSettingsForm = ({ onSettings }) => {
                 mt="md"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                error={isPasswordError}
               />
               <PasswordInput
                 label="Confirm Password"
@@ -110,7 +79,6 @@ const ClientSettingsForm = ({ onSettings }) => {
                 mt="md"
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
-                error={isConfirmPasswordError}
               />
             </Group>
             <Button fullWidth mt="xl" color="green" type="submit">

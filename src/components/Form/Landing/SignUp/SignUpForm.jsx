@@ -10,46 +10,20 @@ const SignUpForm = ({ onSignUp }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [isEmailError, setIsEmailError] = useState(false);
-  const [isPasswordError, setIsPasswordError] = useState(false);
-  const [isConfirmPasswordError, setIsConfirmPasswordError] = useState(false);
-
   const resetForm = () => {
     setFirstName('');
     setLastName('');
     setEmail('');
     setPassword('');
     setConfirmPassword('');
-
-    setIsEmailError(false);
-    setIsPasswordError(false);
-    setIsConfirmPasswordError(false);
   };
 
   const handlePassword = () => {
-    const valid = checkPassword(password, confirmPassword);
-
-    if (valid) {
-      setIsPasswordError(false);
-      setIsConfirmPasswordError(false);
-      return true;
-    } else {
-      setIsPasswordError(true);
-      setIsConfirmPasswordError(true);
-      return false;
-    }
+    return checkPassword(password, confirmPassword);
   };
 
   const handleEmail = () => {
-    const valid = checkEmail(email);
-
-    if (valid) {
-      setIsEmailError(false);
-      return true;
-    } else {
-      setIsEmailError(true);
-      return false;
-    }
+    return checkEmail(email);
   };
 
   const handleSubmit = (e) => {
@@ -82,14 +56,7 @@ const SignUpForm = ({ onSignUp }) => {
             <TextInput label="First Name" required onChange={(e) => setFirstName(e.target.value)} value={firstName} />
             <TextInput label="Last Name" required onChange={(e) => setLastName(e.target.value)} value={lastName} />
           </Group>
-          <TextInput
-            label="Email"
-            required
-            mt="md"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            error={isEmailError}
-          />
+          <TextInput label="Email" required mt="md" onChange={(e) => setEmail(e.target.value)} value={email} />
           <Group grow>
             <PasswordInput
               label="Password"
@@ -97,7 +64,6 @@ const SignUpForm = ({ onSignUp }) => {
               mt="md"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
-              error={isPasswordError}
             />
             <PasswordInput
               label="Confirm Password"
@@ -105,7 +71,6 @@ const SignUpForm = ({ onSignUp }) => {
               mt="md"
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
-              error={isConfirmPasswordError}
             />
           </Group>
           <Button fullWidth mt="xl" color="green" type="submit">
