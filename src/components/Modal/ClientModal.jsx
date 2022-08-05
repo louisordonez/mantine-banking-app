@@ -3,7 +3,7 @@ import { Modal } from '@mantine/core';
 import ClientWithdrawForm from '../Form/Client/Withdraw/ClientWithdrawForm';
 
 const ClientModal = ({ opened, modalType, onModal, onWithdraw, onWithdrawAmount }) => {
-  const useDisplayContent = () => {
+  const useDisplayForm = () => {
     switch (modalType) {
       case 'Withdraw':
         return <ClientWithdrawForm onModal={onModal} onWithdraw={onWithdraw} onWithdrawAmount={onWithdrawAmount} />;
@@ -25,7 +25,7 @@ const ClientModal = ({ opened, modalType, onModal, onWithdraw, onWithdrawAmount 
   return (
     <>
       <Modal centered opened={opened} title={`${modalType}`} onClose={onModal}>
-        {useDisplayContent()}
+        {useDisplayForm()}
       </Modal>
     </>
   );
