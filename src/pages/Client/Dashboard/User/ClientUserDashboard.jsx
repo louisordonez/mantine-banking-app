@@ -16,6 +16,7 @@ import {
 import ClientModal from '../../../../components/Modal/ClientModal';
 import { convertCurrency } from '../../../../services/utilities/convertCurrency';
 import { getLocalStorageItem, assignLocalStorageItem } from '../../../../services/utilities/localStorage';
+import { showNotificationToast } from '../../../../services/utilities/showNotificationToast';
 
 const EXPENSE_LIST = [
   {
@@ -39,7 +40,7 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
   const [opened, setOpened] = useState(false);
   const [modalType, setModalType] = useState('');
   const [userList, setUserList] = useState(null);
-  const [withdrawAmount, setWithdrawAmount] = useState(0);
+  const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     setBalance(findUser.balance);
@@ -55,7 +56,23 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
 
     const index = findUserIndex();
 
-    userList[index].balance -= withdrawAmount;
+    if (amount > userList[index].balance) {
+      showNotificationToast('failed', 'Insufficent balance');
+      return false;
+    }
+
+    userList[index].balance -= amount;
+
+    assignLocalStorageItem('userList', userList);
+    handleModal();
+  };
+
+  const handleDeposit = (e) => {
+    e.preventDefault();
+
+    const index = findUserIndex();
+
+    userList[index].balance += amount;
 
     assignLocalStorageItem('userList', userList);
     handleModal();
@@ -193,8 +210,9 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
         opened={opened}
         modalType={modalType}
         onModal={handleModal}
+        onAmount={setAmount}
         onWithdraw={handleWithdraw}
-        onWithdrawAmount={setWithdrawAmount}
+        onDeposit={handleDeposit}
       />
     </>
   );

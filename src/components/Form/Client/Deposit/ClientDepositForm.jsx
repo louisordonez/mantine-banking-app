@@ -1,10 +1,10 @@
 import React from 'react';
 import { TextInput, Group, Button } from '@mantine/core';
 
-const ClientWithdrawForm = ({ onWithdraw, onAmount, onModal }) => {
+const ClientDepositForm = ({ onAmount, onDeposit, onModal }) => {
   return (
     <>
-      <form onSubmit={onWithdraw}>
+      <form onSubmit={onDeposit}>
         <Group grow>
           <TextInput
             label="Amount"
@@ -28,4 +28,4 @@ const ClientWithdrawForm = ({ onWithdraw, onAmount, onModal }) => {
   );
 };
 
-export default ClientWithdrawForm;
+export default ClientDepositForm;
