@@ -125,6 +125,7 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
 
   const showRows = () => {
     const expenses = EXPENSE_LIST.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
+
     return expenses.map((item) => (
       <tr key={item.id}>
         <td>{item.item}</td>
