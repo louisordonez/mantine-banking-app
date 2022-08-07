@@ -63,6 +63,40 @@ const ClientUserDashboard = () => {
     showCalcExpenses();
   }, [balance, findUser.balance]);
 
+  const handleModal = () => setOpened((o) => !o);
+
+  const openWithdrawModal = () => {
+    handleModal();
+    setModalType('Withdraw');
+  };
+
+  const openDepositModal = () => {
+    handleModal();
+    setModalType('Deposit');
+  };
+
+  const openTransferModal = () => {
+    handleModal();
+    setModalType('Transfer');
+  };
+
+  const openAddExpenseModal = () => {
+    handleModal();
+    setModalType('Add Expense');
+  };
+
+  const openEditExpenseModal = (id) => {
+    console.log(id);
+    handleModal();
+    setModalType('Edit Expense');
+  };
+
+  const openDeleteExpenseModal = (id) => {
+    console.log(id);
+    handleModal();
+    setModalType('Delete Expense');
+  };
+
   const findUserIndex = () => {
     return userList.findIndex((user) => user.accountNumber === userDataLocalStorage.accountNumber);
   };
@@ -115,40 +149,6 @@ const ClientUserDashboard = () => {
       },
     ]);
     handleModal();
-  };
-
-  const handleModal = () => setOpened((o) => !o);
-
-  const openWithdrawModal = () => {
-    handleModal();
-    setModalType('Withdraw');
-  };
-
-  const openDepositModal = () => {
-    handleModal();
-    setModalType('Deposit');
-  };
-
-  const openTransferModal = () => {
-    handleModal();
-    setModalType('Transfer');
-  };
-
-  const openAddExpenseModal = () => {
-    handleModal();
-    setModalType('Add Expense');
-  };
-
-  const openEditExpenseModal = (id) => {
-    console.log(id);
-    handleModal();
-    setModalType('Edit Expense');
-  };
-
-  const openDeleteExpenseModal = (id) => {
-    console.log(id);
-    handleModal();
-    setModalType('Delete Expense');
   };
 
   const showCalcExpenses = () => {
