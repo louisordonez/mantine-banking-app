@@ -1,8 +1,53 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Title, Container, Paper, Group, Table, Text, Anchor } from '@mantine/core';
 import { Users, Cash } from 'tabler-icons-react';
+import { getLocalStorageItem } from '../../../../services/utilities/localStorage';
+import { convertDatetime } from '../../../../services/utilities/convertDatetime';
+import { convertCurrency } from '../../../../services/utilities/convertCurrency';
 
 const ClientAdminDashboard = () => {
+  let navigate = useNavigate();
+
+  const userListLocalStorage = getLocalStorageItem('userList');
+  const transactionListLocalStorage = getLocalStorageItem('transactionList');
+
+  const showRecentUsersRows = () => {
+    let users = userListLocalStorage;
+
+    users.sort((a, b) => b.accountNumber - a.accountNumber);
+
+    return users.slice(0, 5).map((item) => (
+      <tr key={item.accountNumber}>
+        <td>{item.accountNumber}</td>
+        <td>{`${item.firstName} ${item.lastName}`}</td>
+        <td>{convertCurrency(item.balance)}</td>
+      </tr>
+    ));
+  };
+
+  const showRecentTransactionsRows = () => {
+    let transactions = transactionListLocalStorage;
+
+    transactions.sort((a, b) => b.referenceNumber - a.referenceNumber);
+
+    return transactions.slice(0, 5).map((item) => (
+      <tr key={item.referenceNumber}>
+        <td>{item.referenceNumber}</td>
+        <td>{convertDatetime(item.timestamp)}</td>
+        <td>{item.description}</td>
+        <td>
+          {(() =>
+            item.description === 'Deposit' ? (
+              <Text color="green">{`+ ${convertCurrency(item.amount)}`}</Text>
+            ) : (
+              <Text color="red">{`- ${convertCurrency(item.amount)}`}</Text>
+            ))()}
+        </td>
+      </tr>
+    ));
+  };
+
   return (
     <>
       <Title>Dashboard</Title>
@@ -26,7 +71,9 @@ const ClientAdminDashboard = () => {
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group position="apart">
             <Text>Recent Users</Text>
-            <Anchor color="green">See All</Anchor>
+            <Anchor color="green" onClick={() => navigate('/users')}>
+              See All
+            </Anchor>
           </Group>
           <Table highlightOnHover mt={24}>
             <thead>
@@ -36,39 +83,15 @@ const ClientAdminDashboard = () => {
                 <th>Balance</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>123</td>
-                <td>John Doe</td>
-                <td>100.00</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>John Doe</td>
-                <td>100.00</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>John Doe</td>
-                <td>100.00</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>John Doe</td>
-                <td>100.00</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>John Doe</td>
-                <td>100.00</td>
-              </tr>
-            </tbody>
+            <tbody>{showRecentUsersRows()}</tbody>
           </Table>
         </Paper>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group position="apart">
             <Text>Recent Transactions</Text>
-            <Anchor color="green">See All</Anchor>
+            <Anchor color="green" onClick={() => navigate('/transactions')}>
+              See All
+            </Anchor>
           </Group>
           <Table highlightOnHover mt={24}>
             <thead>
@@ -76,40 +99,10 @@ const ClientAdminDashboard = () => {
                 <th>Reference Number</th>
                 <th>Date</th>
                 <th>Description</th>
+                <th>Amount</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>123</td>
-                <td>02/02/2022, 02:02:02</td>
-                <td>Withdraw</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>02/02/2022, 02:02:02</td>
-                <td>Withdraw</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>02/02/2022, 02:02:02</td>
-                <td>Withdraw</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>02/02/2022, 02:02:02</td>
-                <td>Withdraw</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>02/02/2022, 02:02:02</td>
-                <td>Withdraw</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>02/02/2022, 02:02:02</td>
-                <td>Withdraw</td>
-              </tr>
-            </tbody>
+            <tbody>{showRecentTransactionsRows()}</tbody>
           </Table>
         </Paper>
       </Container>
