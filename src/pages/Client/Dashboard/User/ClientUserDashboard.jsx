@@ -20,14 +20,19 @@ import { showNotificationToast } from '../../../../services/utilities/showNotifi
 
 const EXPENSE_LIST = [
   {
-    id: 1,
-    item: 'Tuition Fee',
-    amount: 80000.0,
-  },
-  {
-    id: 2,
-    item: 'Electricity',
-    amount: 4000.75,
+    accountNumber: 1756480543042,
+    expenses: [
+      {
+        id: 1,
+        item: 'Tuition Fee',
+        amount: 80000.0,
+      },
+      {
+        id: 2,
+        item: 'Electricity',
+        amount: 4000.0,
+      },
+    ],
   },
 ];
 
@@ -110,29 +115,34 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
     setModalType('Delete Expense');
   };
 
-  const rows = EXPENSE_LIST.map((item) => (
-    <tr key={item.id}>
-      <td>{item.item}</td>
-      <td>{convertCurrency(item.amount)}</td>
-      <td>
-        <Menu transition="pop" withArrow position="bottom-end">
-          <Menu.Target>
-            <ActionIcon>
-              <Dots size={16} />
-            </ActionIcon>
-          </Menu.Target>
-          <Menu.Dropdown>
-            <Menu.Item icon={<Pencil size={16} />} onClick={openEditExpenseModal}>
-              Edit
-            </Menu.Item>
-            <Menu.Item icon={<Trash size={16} />} onClick={openDeleteExpenseModal} color="red">
-              Delete
-            </Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
-      </td>
-    </tr>
-  ));
+  const showRows = () => {
+    const index = EXPENSE_LIST.findIndex((user) => user.accountNumber === userDataLocalStorage.accountNumber);
+    const rows = EXPENSE_LIST[index].expenses.map((item) => (
+      <tr key={item.id}>
+        <td>{item.item}</td>
+        <td>{convertCurrency(item.amount)}</td>
+        <td>
+          <Menu transition="pop" withArrow position="bottom-end">
+            <Menu.Target>
+              <ActionIcon>
+                <Dots size={16} />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item icon={<Pencil size={16} />} onClick={openEditExpenseModal}>
+                Edit
+              </Menu.Item>
+              <Menu.Item icon={<Trash size={16} />} onClick={openDeleteExpenseModal} color="red">
+                Delete
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        </td>
+      </tr>
+    ));
+
+    return rows;
+  };
 
   return (
     <>
@@ -202,7 +212,7 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
                 <th></th>
               </tr>
             </thead>
-            <tbody>{rows}</tbody>
+            <tbody>{showRows()}</tbody>
           </Table>
         </Paper>
       </Container>
