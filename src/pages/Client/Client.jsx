@@ -8,7 +8,6 @@ import {
   Burger,
   useMantineTheme,
   NavLink,
-  Center,
   Stack,
   Avatar,
   Text,
