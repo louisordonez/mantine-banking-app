@@ -60,11 +60,15 @@ const ClientUserDashboard = () => {
     setBalance(findUser.balance);
     setUserList(userListLocalStorage);
     setExpenseList(expenseListLocalStorage);
+    showCalcExpenses();
   }, [balance, findUser.balance]);
 
   const findUserIndex = () => {
     return userList.findIndex((user) => user.accountNumber === userDataLocalStorage.accountNumber);
   };
+
+  const filterUser = () =>
+    EXPENSE_LIST.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
 
   const handleWithdraw = (e) => {
     e.preventDefault();
@@ -147,8 +151,19 @@ const ClientUserDashboard = () => {
     setModalType('Delete Expense');
   };
 
+  const showCalcExpenses = () => {
+    const expenses = filterUser();
+    const expensesAmount = expenses.map((item) => item.amount);
+
+    return expensesAmount.reduce((a, b) => a + b, 0);
+  };
+
+  const showCalcBalance = () => {
+    return convertCurrency(balance - showCalcExpenses());
+  };
+
   const showRows = () => {
-    const expenses = EXPENSE_LIST.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
+    const expenses = filterUser();
 
     return expenses.map((item) => (
       <tr key={item.id}>
@@ -218,14 +233,14 @@ const ClientUserDashboard = () => {
               <CashBanknote />
               <Text>Calc Expenses</Text>
             </Group>
-            <Text mt={24}>{convertCurrency(84000.0)}</Text>
+            <Text mt={24}>{convertCurrency(showCalcExpenses())}</Text>
           </Paper>
           <Paper withBorder shadow="md" p={30} mt={30} radius="md">
             <Group>
               <CashBanknoteOff />
               <Text>Calc Balance</Text>
             </Group>
-            <Text mt={24}>{convertCurrency(balance - 84000.0)}</Text>
+            <Text mt={24}>{showCalcBalance()}</Text>
           </Paper>
         </Group>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
