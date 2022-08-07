@@ -23,11 +23,13 @@ const EXPENSE_LIST = [
     accountNumber: 1756480543042,
     expenses: [
       {
+        // id: Date.parse(new Date())
         id: 1,
         item: 'Tuition Fee',
         amount: 80000.0,
       },
       {
+        // id: Date.parse(new Date())
         id: 2,
         item: 'Electricity',
         amount: 4000.0,
