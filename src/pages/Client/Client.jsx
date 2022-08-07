@@ -57,11 +57,7 @@ const Client = () => {
 
     switch (params.client) {
       case 'dashboard':
-        return getRole() === 'admin' ? (
-          <ClientAdminDashboard />
-        ) : (
-          <ClientUserDashboard userAccountNumber={userAccountNumber} />
-        );
+        return getRole() === 'admin' ? <ClientAdminDashboard /> : <ClientUserDashboard />;
       case 'users':
         return <ClientUsers />;
       case 'transactions':

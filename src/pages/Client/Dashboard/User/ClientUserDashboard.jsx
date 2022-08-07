@@ -42,7 +42,7 @@ const EXPENSE_LIST = [
   },
 ];
 
-const ClientUserDashboard = ({ userAccountNumber }) => {
+const ClientUserDashboard = () => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const userListLocalStorage = getLocalStorageItem('userList');
   const expenseListLocalStorage = getLocalStorageItem('expenseList');
@@ -187,7 +187,7 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
                   <User />
                   <Text>
                     Account Number
-                    <Text>{userAccountNumber}</Text>
+                    <Text>{userDataLocalStorage.accountNumber}</Text>
                   </Text>
                 </Group>
                 <Group>
