@@ -6,49 +6,23 @@ import { getLocalStorageItem } from '../../../services/utilities/localStorage';
 import { getRole } from '../../../services/utilities/getRole';
 import { convertDatetime } from '../../../services/utilities/convertDatetime';
 
-const TRANSACTION_LIST = [
-  {
-    id: 1,
-    accountNumber: 1756480543042,
-    referenceNumber: 3756480543042,
-    description: 'Withdraw',
-    timestamp: convertDatetime(new Date()),
-    amount: 4000.0,
-  },
-  {
-    id: 2,
-    accountNumber: 1756480543042,
-    referenceNumber: 3756480543044,
-    description: 'Deposit',
-    timestamp: convertDatetime(new Date()),
-    amount: 8000.0,
-  },
-  {
-    id: 3,
-    accountNumber: 2756480543042,
-    referenceNumber: 33756480543042,
-    description: '2756480543042 Transfer to 1756480543042',
-    timestamp: convertDatetime(new Date()),
-    amount: 4000.0,
-  },
-];
-
 const ClientTransactions = () => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
+  const transactionListLocalStorage = getLocalStorageItem('transactionList');
 
   const showRows = () => {
     let transactions;
 
     getRole() === 'user'
-      ? (transactions = TRANSACTION_LIST.filter(
+      ? (transactions = transactionListLocalStorage.filter(
           (transaction) => transaction.accountNumber === userDataLocalStorage.accountNumber
         ))
-      : (transactions = TRANSACTION_LIST);
+      : (transactions = transactionListLocalStorage);
 
     return transactions.map((item) => (
-      <tr key={item.id}>
+      <tr key={item.referenceNumber}>
         <td>{item.referenceNumber}</td>
-        <td>{item.timestamp}</td>
+        <td>{convertDatetime(item.timestamp)}</td>
         <td>{item.description}</td>
         <td>{convertCurrency(item.amount)}</td>
         <td>

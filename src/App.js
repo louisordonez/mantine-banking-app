@@ -20,11 +20,11 @@ function App() {
     }
 
     if (expenseListLocalStorage === null) {
-      assignLocalStorageItem('expenseList', [{}]);
+      assignLocalStorageItem('expenseList', []);
     }
 
     if (transactionListLocalStorage === null) {
-      assignLocalStorageItem('transactionList', [{}]);
+      assignLocalStorageItem('transactionList', []);
     }
   }, []);
 

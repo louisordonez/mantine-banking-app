@@ -1,4 +1,5 @@
-export const convertDatetime = (datetime) => {
+export const convertDatetime = (timestamp) => {
+  const datetime = new Date(timestamp);
   const options = {
     month: '2-digit',
     day: '2-digit',

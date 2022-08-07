@@ -45,17 +45,21 @@ const EXPENSE_LIST = [
 const ClientUserDashboard = ({ userAccountNumber }) => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const userListLocalStorage = getLocalStorageItem('userList');
+  const expenseListLocalStorage = getLocalStorageItem('expenseList');
+  const transactionListLocalStorage = getLocalStorageItem('transactionList');
   const findUser = userListLocalStorage.find((user) => user.accountNumber === userDataLocalStorage.accountNumber);
 
   const [balance, setBalance] = useState(0);
   const [opened, setOpened] = useState(false);
   const [modalType, setModalType] = useState('');
-  const [userList, setUserList] = useState(null);
   const [amount, setAmount] = useState(0);
+  const [userList, setUserList] = useState(null);
+  const [expenseList, setExpenseList] = useState(null);
 
   useEffect(() => {
     setBalance(findUser.balance);
     setUserList(userListLocalStorage);
+    setExpenseList(expenseListLocalStorage);
   }, [balance, findUser.balance]);
 
   const findUserIndex = () => {
@@ -75,6 +79,16 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
     userList[index].balance -= amount;
 
     assignLocalStorageItem('userList', userList);
+    assignLocalStorageItem('transactionList', [
+      ...transactionListLocalStorage,
+      {
+        referenceNumber: Date.parse(new Date()),
+        accountNumber: userDataLocalStorage.accountNumber,
+        description: 'Withdraw',
+        amount: amount,
+        timestamp: new Date(),
+      },
+    ]);
     handleModal();
   };
 
@@ -86,6 +100,16 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
     userList[index].balance += amount;
 
     assignLocalStorageItem('userList', userList);
+    assignLocalStorageItem('transactionList', [
+      ...transactionListLocalStorage,
+      {
+        referenceNumber: Date.parse(new Date()),
+        accountNumber: userDataLocalStorage.accountNumber,
+        description: 'Deposit',
+        amount: amount,
+        timestamp: new Date(),
+      },
+    ]);
     handleModal();
   };
 
