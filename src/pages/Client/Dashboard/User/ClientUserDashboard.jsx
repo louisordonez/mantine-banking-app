@@ -20,21 +20,25 @@ import { showNotificationToast } from '../../../../services/utilities/showNotifi
 
 const EXPENSE_LIST = [
   {
+    // id: Date.parse(new Date())
+    id: 1,
     accountNumber: 1756480543042,
-    expenses: [
-      {
-        // id: Date.parse(new Date())
-        id: 1,
-        item: 'Tuition Fee',
-        amount: 80000.0,
-      },
-      {
-        // id: Date.parse(new Date())
-        id: 2,
-        item: 'Electricity',
-        amount: 4000.0,
-      },
-    ],
+    item: 'Tuition Fee',
+    amount: 80000.0,
+  },
+  {
+    // id: Date.parse(new Date())
+    id: 2,
+    accountNumber: 1756480543042,
+    item: 'Electricity',
+    amount: 4000.0,
+  },
+  {
+    // id: Date.parse(new Date())
+    id: 2,
+    accountNumber: 2756480543042,
+    item: 'Electricity',
+    amount: 4000.0,
   },
 ];
 
@@ -107,19 +111,21 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
     setModalType('Add Expense');
   };
 
-  const openEditExpenseModal = () => {
+  const openEditExpenseModal = (id) => {
+    console.log(id);
     handleModal();
     setModalType('Edit Expense');
   };
 
-  const openDeleteExpenseModal = () => {
+  const openDeleteExpenseModal = (id) => {
+    console.log(id);
     handleModal();
     setModalType('Delete Expense');
   };
 
   const showRows = () => {
-    const index = EXPENSE_LIST.findIndex((user) => user.accountNumber === userDataLocalStorage.accountNumber);
-    const rows = EXPENSE_LIST[index].expenses.map((item) => (
+    const expenses = EXPENSE_LIST.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
+    return expenses.map((item) => (
       <tr key={item.id}>
         <td>{item.item}</td>
         <td>{convertCurrency(item.amount)}</td>
@@ -131,10 +137,10 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item icon={<Pencil size={16} />} onClick={openEditExpenseModal}>
+              <Menu.Item icon={<Pencil size={16} />} onClick={() => openEditExpenseModal(item.id)}>
                 Edit
               </Menu.Item>
-              <Menu.Item icon={<Trash size={16} />} onClick={openDeleteExpenseModal} color="red">
+              <Menu.Item icon={<Trash size={16} />} onClick={() => openDeleteExpenseModal(item.id)} color="red">
                 Delete
               </Menu.Item>
             </Menu.Dropdown>
@@ -142,8 +148,6 @@ const ClientUserDashboard = ({ userAccountNumber }) => {
         </td>
       </tr>
     ));
-
-    return rows;
   };
 
   return (
