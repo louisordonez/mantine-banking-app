@@ -12,9 +12,19 @@ import { USER_LIST } from './services/constants/userList';
 function App() {
   useEffect(() => {
     const userListLocalStorage = getLocalStorageItem('userList');
+    const expenseListLocalStorage = getLocalStorageItem('expenseList');
+    const transactionListLocalStorage = getLocalStorageItem('transactionList');
 
     if (userListLocalStorage === null) {
       assignLocalStorageItem('userList', USER_LIST);
+    }
+
+    if (expenseListLocalStorage === null) {
+      assignLocalStorageItem('expenseList', [{}]);
+    }
+
+    if (transactionListLocalStorage === null) {
+      assignLocalStorageItem('transactionList', [{}]);
     }
   }, []);
 
