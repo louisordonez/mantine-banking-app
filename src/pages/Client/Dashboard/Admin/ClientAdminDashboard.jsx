@@ -12,6 +12,13 @@ const ClientAdminDashboard = () => {
   const userListLocalStorage = getLocalStorageItem('userList');
   const transactionListLocalStorage = getLocalStorageItem('transactionList');
 
+  const showTotalBalance = () => {
+    const users = userListLocalStorage;
+    const usersBalance = users.map((user) => user.balance);
+
+    return usersBalance.reduce((a, b) => a + b, 0);
+  };
+
   const showRecentUsersRows = () => {
     let users = userListLocalStorage;
 
@@ -58,14 +65,14 @@ const ClientAdminDashboard = () => {
               <Users />
               <Text>Total Users</Text>
             </Group>
-            <Text mt={24}>1</Text>
+            <Text mt={24}>{userListLocalStorage.length}</Text>
           </Paper>
           <Paper withBorder shadow="md" p={30} radius="md">
             <Group>
               <Cash />
               <Text>Total Balance</Text>
             </Group>
-            <Text mt={24}>100.00</Text>
+            <Text mt={24}>{convertCurrency(showTotalBalance())}</Text>
           </Paper>
         </Group>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
