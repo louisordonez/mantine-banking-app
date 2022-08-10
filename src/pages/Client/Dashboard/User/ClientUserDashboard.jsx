@@ -53,6 +53,7 @@ const ClientUserDashboard = () => {
   const [opened, setOpened] = useState(false);
   const [modalType, setModalType] = useState('');
   const [amount, setAmount] = useState(0);
+  const [accountNumber, setAccountNumber] = useState(0);
   const [userList, setUserList] = useState(null);
   const [expenseList, setExpenseList] = useState(null);
 
@@ -97,9 +98,7 @@ const ClientUserDashboard = () => {
     setModalType('Delete Expense');
   };
 
-  const findUserIndex = () => {
-    return userList.findIndex((user) => user.accountNumber === userDataLocalStorage.accountNumber);
-  };
+  const findUserIndex = (accountNumber) => userList.findIndex((user) => user.accountNumber === accountNumber);
 
   const filterUser = () =>
     EXPENSE_LIST.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
@@ -107,7 +106,7 @@ const ClientUserDashboard = () => {
   const handleWithdraw = (e) => {
     e.preventDefault();
 
-    const index = findUserIndex();
+    const index = findUserIndex(userDataLocalStorage.accountNumber);
 
     if (amount > userList[index].balance) {
       showNotificationToast('failed', 'Insufficent balance');
@@ -133,7 +132,7 @@ const ClientUserDashboard = () => {
   const handleDeposit = (e) => {
     e.preventDefault();
 
-    const index = findUserIndex();
+    const index = findUserIndex(userDataLocalStorage.accountNumber);
 
     userList[index].balance += amount;
 
@@ -149,6 +148,18 @@ const ClientUserDashboard = () => {
       },
     ]);
     handleModal();
+  };
+
+  const handleTransfer = (e) => {
+    e.preventDefault();
+
+    const userTransferFromIndex = findUserIndex(userDataLocalStorage.accountNumber);
+    const userTransferToIndex = findUserIndex(accountNumber);
+
+    console.log(userTransferFromIndex);
+    console.log(userTransferToIndex);
+
+    // handleModal();
   };
 
   const showCalcExpenses = () => {
@@ -266,9 +277,11 @@ const ClientUserDashboard = () => {
         opened={opened}
         modalType={modalType}
         onModal={handleModal}
+        onAccountNumber={setAccountNumber}
         onAmount={setAmount}
         onWithdraw={handleWithdraw}
         onDeposit={handleDeposit}
+        onTransfer={handleTransfer}
       />
     </>
   );
