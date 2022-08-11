@@ -4,12 +4,14 @@ import ClientWithdrawForm from '../Form/Client/Withdraw/ClientWithdrawForm';
 import ClientDepositForm from '../Form/Client/Deposit/ClientDepositForm';
 import ClientTransferForm from '../Form/Client/Transfer/ClientTransferForm';
 import ClientDetailsForm from '../Form/Client/Details/ClientDetailsForm';
-import ClientCreateUserForm from '../Form/Client/Users/ClientCreateUserForm';
+import ClientCreateUserForm from '../Form/Client/Users/Create/ClientCreateUserForm';
+import ClientDeleteUserForm from '../Form/Client/Users/Delete/ClientDeleteUserForm';
 
 const ClientModal = ({
   opened,
   modalType,
   transactionDetails,
+  accountNumber,
   onModal,
   onAccountNumber,
   onAmount,
@@ -17,6 +19,7 @@ const ClientModal = ({
   onDeposit,
   onTransfer,
   onCreateUser,
+  onDeleteUser,
 }) => {
   const useDisplayForm = () => {
     switch (modalType) {
@@ -46,7 +49,7 @@ const ClientModal = ({
       case 'Edit User':
         return <ClientWithdrawForm />;
       case 'Delete User':
-        return <ClientWithdrawForm />;
+        return <ClientDeleteUserForm accountNumber={accountNumber} onModal={onModal} onDeleteUser={onDeleteUser} />;
       default:
         break;
     }

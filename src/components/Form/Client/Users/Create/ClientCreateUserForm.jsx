@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { TextInput, PasswordInput, Button, Group } from '@mantine/core';
-import { showNotificationToast } from '../../../../services/utilities/showNotificationToast';
-import { checkPassword } from '../../../../services/utilities/userDataValidation';
-import { getLocalStorageItem } from '../../../../services/utilities/localStorage';
+import { showNotificationToast } from '../../../../../services/utilities/showNotificationToast';
+import { checkPassword } from '../../../../../services/utilities/userDataValidation';
+import { getLocalStorageItem } from '../../../../../services/utilities/localStorage';
 
 const ClientCreateUserForm = ({ onModal, onCreateUser }) => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
@@ -91,7 +91,7 @@ const ClientCreateUserForm = ({ onModal, onCreateUser }) => {
             value={confirmPassword}
           />
         </Group>
-        <Group position="right" mt={30}>
+        <Group position="right" mt="md">
           <Button variant="default" onClick={() => onModal(false)}>
             Cancel
           </Button>

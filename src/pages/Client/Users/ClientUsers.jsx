@@ -10,6 +10,7 @@ const ClientUsers = () => {
   const userListLocalStorage = getLocalStorageItem('userList');
 
   const [opened, setOpened] = useState(false);
+  const [accountNumber, setAccountNumber] = useState('');
   const [modalType, setModalType] = useState('');
   const [userList, setUserList] = useState(null);
 
@@ -33,7 +34,15 @@ const ClientUsers = () => {
   const openDeleteModal = (accountNumber) => {
     handleModal(true);
     setModalType('Delete User');
-    console.log(accountNumber);
+    setAccountNumber(accountNumber);
+  };
+
+  const handleDeleteUser = (accountNumber) => {
+    const newUserList = userList.filter((user) => user.accountNumber !== accountNumber);
+
+    assignLocalStorageItem('userList', newUserList);
+    handleModal(false);
+    showNotificationToast('success', 'User deleted');
   };
 
   const handleCreateUser = (userInfo) => {
@@ -97,7 +106,14 @@ const ClientUsers = () => {
           </Table>
         </Paper>
       </Container>
-      <ClientModal opened={opened} modalType={modalType} onModal={handleModal} onCreateUser={handleCreateUser} />
+      <ClientModal
+        opened={opened}
+        modalType={modalType}
+        accountNumber={accountNumber}
+        onModal={handleModal}
+        onCreateUser={handleCreateUser}
+        onDeleteUser={handleDeleteUser}
+      />
     </>
   );
 };
