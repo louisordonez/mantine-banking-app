@@ -18,10 +18,10 @@ const ClientTransactions = () => {
   const findTransaction = (referenceNumber) =>
     transactionListLocalStorage.find((transaction) => transaction.referenceNumber === referenceNumber);
 
-  const handleModal = () => setOpened((o) => !o);
+  const handleModal = (bool) => (bool === true ? setOpened(true) : setOpened(false));
 
   const openDetailsModal = (referenceNumber) => {
-    handleModal();
+    handleModal(true);
     setModalType('Details');
     handleDetails(referenceNumber);
   };

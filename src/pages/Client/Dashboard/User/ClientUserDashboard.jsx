@@ -64,37 +64,37 @@ const ClientUserDashboard = () => {
     showCalcExpenses();
   }, [balance, findUser.balance]);
 
-  const handleModal = () => setOpened((o) => !o);
+  const handleModal = (bool) => (bool === true ? setOpened(true) : setOpened(false));
 
   const openWithdrawModal = () => {
-    handleModal();
+    handleModal(true);
     setModalType('Withdraw');
   };
 
   const openDepositModal = () => {
-    handleModal();
+    handleModal(true);
     setModalType('Deposit');
   };
 
   const openTransferModal = () => {
-    handleModal();
+    handleModal(true);
     setModalType('Transfer');
   };
 
   const openAddExpenseModal = () => {
-    handleModal();
+    handleModal(true);
     setModalType('Add Expense');
   };
 
   const openEditExpenseModal = (id) => {
     console.log(id);
-    handleModal();
+    handleModal(true);
     setModalType('Edit Expense');
   };
 
   const openDeleteExpenseModal = (id) => {
     console.log(id);
-    handleModal();
+    handleModal(true);
     setModalType('Delete Expense');
   };
 
@@ -126,7 +126,7 @@ const ClientUserDashboard = () => {
         timestamp: new Date(),
       },
     ]);
-    handleModal();
+    handleModal(false);
   };
 
   const handleDeposit = (e) => {
@@ -147,7 +147,7 @@ const ClientUserDashboard = () => {
         timestamp: new Date(),
       },
     ]);
-    handleModal();
+    handleModal(false);
   };
 
   const handleTransfer = (e) => {
@@ -173,7 +173,7 @@ const ClientUserDashboard = () => {
           timestamp: new Date(),
         },
       ]);
-      handleModal();
+      handleModal(false);
     }
   };
 

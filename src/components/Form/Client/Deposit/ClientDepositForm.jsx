@@ -16,7 +16,7 @@ const ClientDepositForm = ({ onAmount, onDeposit, onModal }) => {
           ></TextInput>
         </Group>
         <Group position="right" mt={30}>
-          <Button variant="default" onClick={onModal}>
+          <Button variant="default" onClick={() => onModal(false)}>
             Cancel
           </Button>
           <Button color="green" type="submit">

@@ -38,7 +38,7 @@ const ClientModal = ({
       case 'Delete Expense':
         return <ClientWithdrawForm />;
       case 'Details':
-        return <ClientDetailsForm transactionDetails={transactionDetails} onModal={onModal} />;
+        return <ClientDetailsForm transactionDetails={transactionDetails} />;
       default:
         break;
     }
@@ -46,7 +46,7 @@ const ClientModal = ({
 
   return (
     <>
-      <Modal centered opened={opened} title={`${modalType}`} onClose={onModal}>
+      <Modal centered opened={opened} title={`${modalType}`} onClose={() => onModal(false)}>
         {useDisplayForm()}
       </Modal>
     </>
