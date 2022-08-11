@@ -1,14 +1,36 @@
-import React from 'react';
-import { Title, Container, Paper, Group, TextInput, Table, Menu, ActionIcon, Text } from '@mantine/core';
+import React, { useState } from 'react';
+import { Title, Container, Paper, Group, TextInput, Table, Menu, ActionIcon } from '@mantine/core';
 import { Search, Dots, InfoCircle } from 'tabler-icons-react';
 import { getLocalStorageItem } from '../../../services/utilities/localStorage';
 import { getRole } from '../../../services/utilities/getRole';
 import { convertDatetime } from '../../../services/utilities/convertDatetime';
-import { convertCurrency } from '../../../services/utilities/convertCurrency';
+import { changeAmountText } from '../../../services/utilities/changeAmountText';
+import ClientModal from '../../../components/Modal/ClientModal';
 
 const ClientTransactions = () => {
+  const [opened, setOpened] = useState(false);
+  const [modalType, setModalType] = useState('');
+  const [transactionDetails, setTransactionDetails] = useState(null);
+
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const transactionListLocalStorage = getLocalStorageItem('transactionList');
+
+  const findTransaction = (referenceNumber) =>
+    transactionListLocalStorage.find((transaction) => transaction.referenceNumber === referenceNumber);
+
+  const handleModal = () => setOpened((o) => !o);
+
+  const openDetailsModal = (referenceNumber) => {
+    handleModal();
+    setModalType('Details');
+    handleDetails(referenceNumber);
+  };
+
+  const handleDetails = (referenceNumber) => {
+    const transaction = findTransaction(referenceNumber);
+
+    setTransactionDetails(transaction);
+  };
 
   const showRows = () => {
     let transactions;
@@ -25,15 +47,11 @@ const ClientTransactions = () => {
       <tr key={item.referenceNumber}>
         <td>{item.referenceNumber}</td>
         <td>{convertDatetime(item.timestamp)}</td>
-        <td>{item.description}</td>
         <td>
           {(() =>
-            item.description === 'Deposit' ? (
-              <Text color="green">{`+ ${convertCurrency(item.amount)}`}</Text>
-            ) : (
-              <Text color="red">{`- ${convertCurrency(item.amount)}`}</Text>
-            ))()}
+            item.description === 'Withdraw' || item.description === 'Deposit' ? item.description : 'Transfer')()}
         </td>
+        <td>{changeAmountText(item.description, item.amount)}</td>
         <td>
           <Group>
             <Menu transition="pop" withArrow position="bottom-end">
@@ -43,7 +61,9 @@ const ClientTransactions = () => {
                 </ActionIcon>
               </Menu.Target>
               <Menu.Dropdown>
-                <Menu.Item icon={<InfoCircle size={16} />}>Details</Menu.Item>
+                <Menu.Item icon={<InfoCircle size={16} />} onClick={() => openDetailsModal(item.referenceNumber)}>
+                  Details
+                </Menu.Item>
               </Menu.Dropdown>
             </Menu>
           </Group>
@@ -72,6 +92,12 @@ const ClientTransactions = () => {
           </Table>
         </Paper>
       </Container>
+      <ClientModal
+        opened={opened}
+        modalType={modalType}
+        transactionDetails={transactionDetails}
+        onModal={handleModal}
+      />
     </>
   );
 };

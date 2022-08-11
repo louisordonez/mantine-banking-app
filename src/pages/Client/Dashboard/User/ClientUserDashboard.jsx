@@ -49,9 +49,9 @@ const ClientUserDashboard = () => {
   const transactionListLocalStorage = getLocalStorageItem('transactionList');
   const findUser = userListLocalStorage.find((user) => user.accountNumber === userDataLocalStorage.accountNumber);
 
-  const [balance, setBalance] = useState(0);
   const [opened, setOpened] = useState(false);
   const [modalType, setModalType] = useState('');
+  const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState(0);
   const [accountNumber, setAccountNumber] = useState(0);
   const [userList, setUserList] = useState(null);
