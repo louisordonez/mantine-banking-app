@@ -44,7 +44,7 @@ const EXPENSE_LIST = [
 
 const ClientUserDashboard = () => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
-  const userListLocalStorage = getLocalStorageItem('userList').filter((user) => user.accountNumber !== 1);
+  const userListLocalStorage = getLocalStorageItem('userList');
   const expenseListLocalStorage = getLocalStorageItem('expenseList');
   const transactionListLocalStorage = getLocalStorageItem('transactionList');
   const findUser = userListLocalStorage.find((user) => user.accountNumber === userDataLocalStorage.accountNumber);
