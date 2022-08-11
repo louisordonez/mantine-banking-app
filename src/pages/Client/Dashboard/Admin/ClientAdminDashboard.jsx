@@ -11,7 +11,7 @@ import { changeAmountText } from '../../../../services/utilities/changeAmountTex
 const ClientAdminDashboard = () => {
   let navigate = useNavigate();
 
-  const userListLocalStorage = getLocalStorageItem('userList');
+  const userListLocalStorage = getLocalStorageItem('userList').filter((user) => user.accountNumber !== 1);
   const transactionListLocalStorage = getLocalStorageItem('transactionList');
 
   const showTotalBalance = () => {
