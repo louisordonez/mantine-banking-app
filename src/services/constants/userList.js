@@ -9,7 +9,7 @@ export const USER_LIST = [
     role: 'admin',
   },
   {
-    accountNumber: 1756480543042,
+    accountNumber: 1560222970000,
     firstName: 'John',
     lastName: 'Doe',
     email: 'jd@email.com',
@@ -18,7 +18,7 @@ export const USER_LIST = [
     role: 'user',
   },
   {
-    accountNumber: 23756480543042,
+    accountNumber: 1560222970001,
     firstName: 'John',
     lastName: 'Smith',
     email: 'js@email.com',
@@ -27,7 +27,7 @@ export const USER_LIST = [
     role: 'user',
   },
   {
-    accountNumber: 3656480543188,
+    accountNumber: 1560222970002,
     firstName: 'Maria',
     lastName: 'Dela Cruz',
     email: 'mdc@email.com',
@@ -36,7 +36,7 @@ export const USER_LIST = [
     role: 'user',
   },
   {
-    accountNumber: 4656842687,
+    accountNumber: 1560222970003,
     firstName: 'Juan',
     lastName: 'Dela Cruz',
     email: 'jdc@email.com',

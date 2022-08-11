@@ -1,21 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { Title, Container, Paper, Group, TextInput, Button, Table, Menu, ActionIcon } from '@mantine/core';
 import { Search, Plus, Dots, Pencil, Trash } from 'tabler-icons-react';
+import ClientModal from '../../../components/Modal/ClientModal';
 import { getLocalStorageItem, assignLocalStorageItem } from '../../../services/utilities/localStorage';
-import { USER_LIST } from '../../../services/constants/userList';
 import { convertCurrency } from '../../../services/utilities/convertCurrency';
+import { showNotificationToast } from '../../../services/utilities/showNotificationToast';
 
 const ClientUsers = () => {
-  const userListLocalStorage = getLocalStorageItem('userList').filter((user) => user.accountNumber !== 1);
+  const userListLocalStorage = getLocalStorageItem('userList');
 
+  const [opened, setOpened] = useState(false);
+  const [modalType, setModalType] = useState('');
   const [userList, setUserList] = useState(null);
 
   useEffect(() => {
     setUserList(userListLocalStorage);
   }, []);
 
+  const handleModal = (bool) => (bool === true ? setOpened(true) : setOpened(false));
+
+  const openCreateUserModal = () => {
+    handleModal(true);
+    setModalType('Create User');
+  };
+
+  const openEditModal = (accountNumber) => {
+    handleModal(true);
+    setModalType('Edit User');
+    console.log(accountNumber);
+  };
+
+  const openDeleteModal = (accountNumber) => {
+    handleModal(true);
+    setModalType('Delete User');
+    console.log(accountNumber);
+  };
+
+  const handleCreateUser = (userInfo) => {
+    assignLocalStorageItem('userList', [...userListLocalStorage, userInfo]);
+    handleModal(false);
+    showNotificationToast('success', 'User created');
+  };
+
   const showUsers = () => {
-    return userListLocalStorage.map((item) => (
+    let users = userListLocalStorage.filter((user) => user.accountNumber !== 1);
+
+    users.sort((a, b) => b.accountNumber - a.accountNumber);
+
+    return users.map((item) => (
       <tr key={item.accountNumber}>
         <td>{item.accountNumber}</td>
         <td>{`${item.firstName} ${item.lastName}`}</td>
@@ -28,8 +60,10 @@ const ClientUsers = () => {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item icon={<Pencil size={16} />}>Edit</Menu.Item>
-              <Menu.Item icon={<Trash size={16} />} color="red">
+              <Menu.Item icon={<Pencil size={16} />} onClick={() => openEditModal(item.accountNumber)}>
+                Edit
+              </Menu.Item>
+              <Menu.Item icon={<Trash size={16} />} color="red" onClick={() => openDeleteModal(item.accountNumber)}>
                 Delete
               </Menu.Item>
             </Menu.Dropdown>
@@ -45,7 +79,7 @@ const ClientUsers = () => {
       <Container my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group position="right" mb={16}>
-            <Button color="green" leftIcon={<Plus size={16} />}>
+            <Button color="green" leftIcon={<Plus size={16} />} onClick={openCreateUserModal}>
               Create user
             </Button>
           </Group>
@@ -63,6 +97,7 @@ const ClientUsers = () => {
           </Table>
         </Paper>
       </Container>
+      <ClientModal opened={opened} modalType={modalType} onModal={handleModal} onCreateUser={handleCreateUser} />
     </>
   );
 };
