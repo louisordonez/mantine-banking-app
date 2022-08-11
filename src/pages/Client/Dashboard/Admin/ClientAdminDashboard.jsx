@@ -5,6 +5,8 @@ import { Users, Cash } from 'tabler-icons-react';
 import { getLocalStorageItem } from '../../../../services/utilities/localStorage';
 import { convertDatetime } from '../../../../services/utilities/convertDatetime';
 import { convertCurrency } from '../../../../services/utilities/convertCurrency';
+import { changeDescriptionText } from '../../../../services/utilities/changeDescriptionText';
+import { changeAmountText } from '../../../../services/utilities/changeAmountText';
 
 const ClientAdminDashboard = () => {
   let navigate = useNavigate();
@@ -42,15 +44,8 @@ const ClientAdminDashboard = () => {
       <tr key={item.referenceNumber}>
         <td>{item.referenceNumber}</td>
         <td>{convertDatetime(item.timestamp)}</td>
-        <td>{item.description}</td>
-        <td>
-          {(() =>
-            item.description === 'Deposit' ? (
-              <Text color="green">{`+ ${convertCurrency(item.amount)}`}</Text>
-            ) : (
-              <Text color="red">{`- ${convertCurrency(item.amount)}`}</Text>
-            ))()}
-        </td>
+        <td>{changeDescriptionText(item.description)}</td>
+        <td>{changeAmountText(item.description, item.amount)}</td>
       </tr>
     ));
   };

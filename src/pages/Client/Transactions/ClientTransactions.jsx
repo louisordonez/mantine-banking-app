@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Title, Container, Paper, Group, TextInput, Table, Menu, ActionIcon } from '@mantine/core';
+import ClientModal from '../../../components/Modal/ClientModal';
 import { Search, Dots, InfoCircle } from 'tabler-icons-react';
 import { getLocalStorageItem } from '../../../services/utilities/localStorage';
 import { getRole } from '../../../services/utilities/getRole';
 import { convertDatetime } from '../../../services/utilities/convertDatetime';
+import { changeDescriptionText } from '../../../services/utilities/changeDescriptionText';
 import { changeAmountText } from '../../../services/utilities/changeAmountText';
-import ClientModal from '../../../components/Modal/ClientModal';
 
 const ClientTransactions = () => {
   const [opened, setOpened] = useState(false);
@@ -47,10 +48,7 @@ const ClientTransactions = () => {
       <tr key={item.referenceNumber}>
         <td>{item.referenceNumber}</td>
         <td>{convertDatetime(item.timestamp)}</td>
-        <td>
-          {(() =>
-            item.description === 'Withdraw' || item.description === 'Deposit' ? item.description : 'Transfer')()}
-        </td>
+        <td>{changeDescriptionText(item.description)}</td>
         <td>{changeAmountText(item.description, item.amount)}</td>
         <td>
           <Group>
