@@ -12,6 +12,7 @@ const ClientTransactions = () => {
   const [opened, setOpened] = useState(false);
   const [modalType, setModalType] = useState('');
   const [transactionDetails, setTransactionDetails] = useState(null);
+  const [searchReferenceNumber, setSearchReferenceNumber] = useState('');
 
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const transactionListLocalStorage = getLocalStorageItem('transactionList');
@@ -33,7 +34,7 @@ const ClientTransactions = () => {
     setTransactionDetails(transaction);
   };
 
-  const showRows = () => {
+  const showTransactions = () => {
     let transactions;
 
     getRole() === 'user'
@@ -42,7 +43,11 @@ const ClientTransactions = () => {
         ))
       : (transactions = transactionListLocalStorage);
 
-    transactions.sort((a, b) => b.referenceNumber - a.referenceNumber);
+    searchReferenceNumber === ''
+      ? (transactions = transactions.sort((a, b) => b.referenceNumber - a.referenceNumber))
+      : (transactions = transactions.filter(
+          (transaction) => transaction.referenceNumber === parseInt(searchReferenceNumber)
+        ));
 
     return transactions.map((item) => (
       <tr key={item.referenceNumber}>
@@ -75,7 +80,13 @@ const ClientTransactions = () => {
       <Title>Transactions</Title>
       <Container my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput placeholder="Enter reference number" icon={<Search size={16} />} mb={16}></TextInput>
+          <TextInput
+            placeholder="Enter reference number"
+            type="number"
+            icon={<Search size={16} />}
+            mb={16}
+            onChange={(e) => setSearchReferenceNumber(e.target.value)}
+          ></TextInput>
           <Table highlightOnHover>
             <thead>
               <tr>
@@ -86,7 +97,7 @@ const ClientTransactions = () => {
                 <th></th>
               </tr>
             </thead>
-            <tbody>{showRows()}</tbody>
+            <tbody>{showTransactions()}</tbody>
           </Table>
         </Paper>
       </Container>

@@ -188,7 +188,7 @@ const ClientUserDashboard = () => {
     return convertCurrency(balance - showCalcExpenses());
   };
 
-  const showRows = () => {
+  const showExpenses = () => {
     const expenses = filterUser();
 
     return expenses.map((item) => (
@@ -284,7 +284,7 @@ const ClientUserDashboard = () => {
                 <th></th>
               </tr>
             </thead>
-            <tbody>{showRows()}</tbody>
+            <tbody>{showExpenses()}</tbody>
           </Table>
         </Paper>
       </Container>

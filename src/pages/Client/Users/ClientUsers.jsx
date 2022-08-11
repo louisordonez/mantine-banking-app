@@ -11,6 +11,7 @@ const ClientUsers = () => {
 
   const [opened, setOpened] = useState(false);
   const [accountNumber, setAccountNumber] = useState('');
+  const [searchAccountNumber, setSearchAccountNumber] = useState('');
   const [modalType, setModalType] = useState('');
   const [userList, setUserList] = useState(null);
 
@@ -68,7 +69,9 @@ const ClientUsers = () => {
   const showUsers = () => {
     let users = userListLocalStorage.filter((user) => user.accountNumber !== 1);
 
-    users.sort((a, b) => b.accountNumber - a.accountNumber);
+    searchAccountNumber === ''
+      ? (users = users.sort((a, b) => b.accountNumber - a.accountNumber))
+      : (users = users.filter((user) => user.accountNumber === parseInt(searchAccountNumber)));
 
     return users.map((item) => (
       <tr key={item.accountNumber}>
@@ -106,7 +109,13 @@ const ClientUsers = () => {
               Create user
             </Button>
           </Group>
-          <TextInput placeholder="Enter account number" icon={<Search size={16} />} mb={16}></TextInput>
+          <TextInput
+            placeholder="Enter account number"
+            type="number"
+            icon={<Search size={16} />}
+            mb={16}
+            onChange={(e) => setSearchAccountNumber(e.target.value)}
+          ></TextInput>
           <Table highlightOnHover>
             <thead>
               <tr>

@@ -8,6 +8,7 @@ import Error404 from './pages/Error/Error404/Error404';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { assignLocalStorageItem, getLocalStorageItem } from './services/utilities/localStorage';
 import { USER_LIST } from './services/constants/userList';
+import { TRANSACTION_LIST } from './services/constants/transactionList';
 
 function App() {
   useEffect(() => {
@@ -24,7 +25,7 @@ function App() {
     }
 
     if (transactionListLocalStorage === null) {
-      assignLocalStorageItem('transactionList', []);
+      assignLocalStorageItem('transactionList', TRANSACTION_LIST);
     }
   }, []);
 
