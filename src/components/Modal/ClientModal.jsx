@@ -5,6 +5,7 @@ import ClientDepositForm from '../Form/Client/Deposit/ClientDepositForm';
 import ClientTransferForm from '../Form/Client/Transfer/ClientTransferForm';
 import ClientDetailsForm from '../Form/Client/Details/ClientDetailsForm';
 import ClientCreateUserForm from '../Form/Client/Users/Create/ClientCreateUserForm';
+import ClientEditUserForm from '../Form/Client/Users/Edit/ClientEditUserForm';
 import ClientDeleteUserForm from '../Form/Client/Users/Delete/ClientDeleteUserForm';
 
 const ClientModal = ({
@@ -19,6 +20,7 @@ const ClientModal = ({
   onDeposit,
   onTransfer,
   onCreateUser,
+  onEditUser,
   onDeleteUser,
 }) => {
   const useDisplayForm = () => {
@@ -47,7 +49,7 @@ const ClientModal = ({
       case 'Create User':
         return <ClientCreateUserForm onModal={onModal} onCreateUser={onCreateUser} />;
       case 'Edit User':
-        return <ClientWithdrawForm />;
+        return <ClientEditUserForm accountNumber={accountNumber} onModal={onModal} onEditUser={onEditUser} />;
       case 'Delete User':
         return <ClientDeleteUserForm accountNumber={accountNumber} onModal={onModal} onDeleteUser={onDeleteUser} />;
       default:

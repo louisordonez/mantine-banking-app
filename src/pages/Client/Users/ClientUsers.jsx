@@ -20,15 +20,10 @@ const ClientUsers = () => {
 
   const handleModal = (bool) => (bool === true ? setOpened(true) : setOpened(false));
 
-  const openCreateUserModal = () => {
-    handleModal(true);
-    setModalType('Create User');
-  };
-
   const openEditModal = (accountNumber) => {
     handleModal(true);
     setModalType('Edit User');
-    console.log(accountNumber);
+    setAccountNumber(accountNumber);
   };
 
   const openDeleteModal = (accountNumber) => {
@@ -37,12 +32,31 @@ const ClientUsers = () => {
     setAccountNumber(accountNumber);
   };
 
+  const openCreateUserModal = () => {
+    handleModal(true);
+    setModalType('Create User');
+  };
+
   const handleDeleteUser = (accountNumber) => {
     const newUserList = userList.filter((user) => user.accountNumber !== accountNumber);
 
     assignLocalStorageItem('userList', newUserList);
     handleModal(false);
     showNotificationToast('success', 'User deleted');
+  };
+
+  const handleEditUser = (userData) => {
+    const findUserIndex = userList.findIndex((user) => user.accountNumber === accountNumber);
+
+    userList[findUserIndex].firstName = userData.firstName;
+    userList[findUserIndex].lastName = userData.lastName;
+    userList[findUserIndex].balance = userData.balance;
+    userList[findUserIndex].email = userData.email;
+    userList[findUserIndex].password = userData.password;
+
+    assignLocalStorageItem('userList', userList);
+    handleModal(false);
+    showNotificationToast('success', 'User edited');
   };
 
   const handleCreateUser = (userInfo) => {
@@ -112,6 +126,7 @@ const ClientUsers = () => {
         accountNumber={accountNumber}
         onModal={handleModal}
         onCreateUser={handleCreateUser}
+        onEditUser={handleEditUser}
         onDeleteUser={handleDeleteUser}
       />
     </>

@@ -21,17 +21,19 @@ const ClientSettingsForm = ({ onSettings }) => {
 
   const handleEmail = () => {
     const validate = /^\S+@\S+$/.test(email);
-    const findEmail = userListLocalStorage.find((user) => user.email === email);
+    const findEmail = userListLocalStorage
+      .filter((user) => user.email !== userDataLocalStorage.email)
+      .find((user) => user.email === email);
 
     if (!validate) {
       showNotificationToast('failed', 'Invalid Email');
       return false;
     } else {
-      if (findEmail === undefined) {
-        return true;
-      } else if (findEmail.email === userDataLocalStorage.email) {
+      if (findEmail) {
         showNotificationToast('failed', 'Email already taken');
         return false;
+      } else {
+        return true;
       }
     }
   };

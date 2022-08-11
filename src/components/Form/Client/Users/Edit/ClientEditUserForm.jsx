@@ -4,16 +4,17 @@ import { showNotificationToast } from '../../../../../services/utilities/showNot
 import { checkPassword } from '../../../../../services/utilities/userDataValidation';
 import { getLocalStorageItem } from '../../../../../services/utilities/localStorage';
 
-const ClientCreateUserForm = ({ onModal, onCreateUser }) => {
+const ClientEditUserForm = ({ accountNumber, onModal, onEditUser }) => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const userListLocalStorage = getLocalStorageItem('userList');
+  const findUser = userListLocalStorage.find((user) => user.accountNumber === accountNumber);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [balance, setBalance] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstName, setFirstName] = useState(findUser.firstName);
+  const [lastName, setLastName] = useState(findUser.lastName);
+  const [balance, setBalance] = useState(findUser.balance);
+  const [email, setEmail] = useState(findUser.email);
+  const [password, setPassword] = useState(findUser.password);
+  const [confirmPassword, setConfirmPassword] = useState(findUser.password);
 
   const handlePassword = () => {
     return checkPassword(password, confirmPassword);
@@ -21,17 +22,19 @@ const ClientCreateUserForm = ({ onModal, onCreateUser }) => {
 
   const handleEmail = () => {
     const validate = /^\S+@\S+$/.test(email);
-    const findEmail = userListLocalStorage.find((user) => user.email === email);
+    const findEmail = userListLocalStorage
+      .filter((user) => user.email !== findUser.email)
+      .find((user) => user.email === email);
 
     if (!validate) {
       showNotificationToast('failed', 'Invalid Email');
       return false;
     } else {
-      if (findEmail === undefined) {
-        return true;
-      } else if (findEmail.email === userDataLocalStorage.email) {
+      if (findEmail) {
         showNotificationToast('failed', 'Email already taken');
         return false;
+      } else {
+        return true;
       }
     }
   };
@@ -44,14 +47,13 @@ const ClientCreateUserForm = ({ onModal, onCreateUser }) => {
     };
 
     if (checkValidation()) {
-      onCreateUser({
-        accountNumber: Date.parse(new Date()),
+      onEditUser({
+        accountNumber: accountNumber,
         firstName,
         lastName,
         email,
         password,
         balance: parseFloat(balance),
-        role: 'user',
       });
     }
   };
@@ -104,4 +106,4 @@ const ClientCreateUserForm = ({ onModal, onCreateUser }) => {
   );
 };
 
-export default ClientCreateUserForm;
+export default ClientEditUserForm;
