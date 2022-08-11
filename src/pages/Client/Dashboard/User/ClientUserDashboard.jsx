@@ -156,10 +156,25 @@ const ClientUserDashboard = () => {
     const userTransferFromIndex = findUserIndex(userDataLocalStorage.accountNumber);
     const userTransferToIndex = findUserIndex(accountNumber);
 
-    console.log(userTransferFromIndex);
-    console.log(userTransferToIndex);
+    if (userTransferToIndex === -1) {
+      showNotificationToast('failed', 'Invalid account number');
+    } else {
+      userList[userTransferFromIndex].balance -= amount;
+      userList[userTransferToIndex].balance += amount;
 
-    // handleModal();
+      assignLocalStorageItem('userList', userList);
+      assignLocalStorageItem('transactionList', [
+        ...transactionListLocalStorage,
+        {
+          referenceNumber: Date.parse(new Date()),
+          accountNumber: userDataLocalStorage.accountNumber,
+          description: `${userDataLocalStorage.accountNumber} Transfer to ${accountNumber}`,
+          amount: amount,
+          timestamp: new Date(),
+        },
+      ]);
+      handleModal();
+    }
   };
 
   const showCalcExpenses = () => {
