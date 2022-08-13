@@ -30,6 +30,7 @@ const ClientUserDashboard = () => {
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState(0);
   const [accountNumber, setAccountNumber] = useState(0);
+  const [referenceNumber, setReferenceNumber] = useState(0);
   const [userList, setUserList] = useState(null);
   const [expenseList, setExpenseList] = useState(null);
 
@@ -42,36 +43,10 @@ const ClientUserDashboard = () => {
 
   const handleModal = (bool) => (bool === true ? setOpened(true) : setOpened(false));
 
-  const openWithdrawModal = () => {
+  const openModal = (modalType, id) => {
     handleModal(true);
-    setModalType('Withdraw');
-  };
-
-  const openDepositModal = () => {
-    handleModal(true);
-    setModalType('Deposit');
-  };
-
-  const openTransferModal = () => {
-    handleModal(true);
-    setModalType('Transfer');
-  };
-
-  const openAddExpenseModal = () => {
-    handleModal(true);
-    setModalType('Add Expense');
-  };
-
-  const openEditExpenseModal = (id) => {
+    setModalType(modalType);
     console.log(id);
-    handleModal(true);
-    setModalType('Edit Expense');
-  };
-
-  const openDeleteExpenseModal = (id) => {
-    console.log(id);
-    handleModal(true);
-    setModalType('Delete Expense');
   };
 
   const findUserIndex = (accountNumber) => userList.findIndex((user) => user.accountNumber === accountNumber);
@@ -160,9 +135,7 @@ const ClientUserDashboard = () => {
     return expensesAmount.reduce((a, b) => a + b, 0);
   };
 
-  const showCalcBalance = () => {
-    return convertCurrency(balance - showCalcExpenses());
-  };
+  const showCalcBalance = () => convertCurrency(balance - showCalcExpenses());
 
   const showExpenses = () => {
     const expenses = filterExpenses();
@@ -179,10 +152,10 @@ const ClientUserDashboard = () => {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item icon={<Pencil size={16} />} onClick={() => openEditExpenseModal(item.id)}>
+              <Menu.Item icon={<Pencil size={16} />} onClick={() => openModal('Edit Expense', item.id)}>
                 Edit
               </Menu.Item>
-              <Menu.Item icon={<Trash size={16} />} onClick={() => openDeleteExpenseModal(item.id)} color="red">
+              <Menu.Item icon={<Trash size={16} />} color="red" onClick={() => openModal('Delete Expense', item.id)}>
                 Delete
               </Menu.Item>
             </Menu.Dropdown>
@@ -216,13 +189,13 @@ const ClientUserDashboard = () => {
                 </Group>
               </Stack>
               <Stack>
-                <Button color="green" leftIcon={<ArrowBarToDown size={16} />} onClick={openWithdrawModal}>
+                <Button color="green" leftIcon={<ArrowBarToDown size={16} />} onClick={() => openModal('Withdraw')}>
                   Withdraw
                 </Button>
-                <Button color="green" leftIcon={<ArrowBarToUp size={16} />} onClick={openDepositModal}>
+                <Button color="green" leftIcon={<ArrowBarToUp size={16} />} onClick={() => openModal('Deposit')}>
                   Deposit
                 </Button>
-                <Button color="green" leftIcon={<ArrowsRightLeft size={16} />} onClick={openTransferModal}>
+                <Button color="green" leftIcon={<ArrowsRightLeft size={16} />} onClick={() => openModal('Transfer')}>
                   Transfer
                 </Button>
               </Stack>
@@ -248,7 +221,7 @@ const ClientUserDashboard = () => {
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group position="apart">
             <Text>Expenses</Text>
-            <Button color="green" leftIcon={<Plus size={16} />} onClick={openAddExpenseModal}>
+            <Button color="green" leftIcon={<Plus size={16} />} onClick={() => openModal('Add Expense')}>
               Add Expense
             </Button>
           </Group>
