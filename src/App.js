@@ -8,6 +8,7 @@ import Error404 from './pages/Error/Error404/Error404';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { assignLocalStorageItem, getLocalStorageItem } from './services/utilities/localStorage';
 import { USER_LIST } from './services/constants/userList';
+import { EXEPENSE_LIST } from './services/constants/expenseList';
 import { TRANSACTION_LIST } from './services/constants/transactionList';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
     }
 
     if (expenseListLocalStorage === null) {
-      assignLocalStorageItem('expenseList', []);
+      assignLocalStorageItem('expenseList', EXEPENSE_LIST);
     }
 
     if (transactionListLocalStorage === null) {

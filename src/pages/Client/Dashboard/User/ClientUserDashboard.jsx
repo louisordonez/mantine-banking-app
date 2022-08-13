@@ -18,30 +18,6 @@ import { convertCurrency } from '../../../../services/utilities/convertCurrency'
 import { getLocalStorageItem, assignLocalStorageItem } from '../../../../services/utilities/localStorage';
 import { showNotificationToast } from '../../../../services/utilities/showNotificationToast';
 
-const EXPENSE_LIST = [
-  {
-    // id: Date.parse(new Date())
-    id: 1,
-    accountNumber: 1756480543042,
-    item: 'Tuition Fee',
-    amount: 80000.0,
-  },
-  {
-    // id: Date.parse(new Date())
-    id: 2,
-    accountNumber: 1756480543042,
-    item: 'Electricity',
-    amount: 4000.0,
-  },
-  {
-    // id: Date.parse(new Date())
-    id: 2,
-    accountNumber: 2756480543042,
-    item: 'Electricity',
-    amount: 4000.0,
-  },
-];
-
 const ClientUserDashboard = () => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const userListLocalStorage = getLocalStorageItem('userList');
@@ -100,8 +76,8 @@ const ClientUserDashboard = () => {
 
   const findUserIndex = (accountNumber) => userList.findIndex((user) => user.accountNumber === accountNumber);
 
-  const filterUser = () =>
-    EXPENSE_LIST.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
+  const filterExpenses = () =>
+    expenseListLocalStorage.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
 
   const handleWithdraw = (e) => {
     e.preventDefault();
@@ -178,7 +154,7 @@ const ClientUserDashboard = () => {
   };
 
   const showCalcExpenses = () => {
-    const expenses = filterUser();
+    const expenses = filterExpenses();
     const expensesAmount = expenses.map((item) => item.amount);
 
     return expensesAmount.reduce((a, b) => a + b, 0);
@@ -189,7 +165,7 @@ const ClientUserDashboard = () => {
   };
 
   const showExpenses = () => {
-    const expenses = filterUser();
+    const expenses = filterExpenses();
 
     return expenses.map((item) => (
       <tr key={item.id}>

@@ -14,7 +14,7 @@ export const USER_LIST = [
     lastName: 'Doe',
     email: 'jd@email.com',
     password: 'jd',
-    balance: 20000.0,
+    balance: 100000.0,
     role: 'user',
   },
   {
