@@ -21,21 +21,10 @@ const ClientUsers = () => {
 
   const handleModal = (bool) => (bool === true ? setOpened(true) : setOpened(false));
 
-  const openEditModal = (accountNumber) => {
+  const openModal = (modalType, accountNumber) => {
     handleModal(true);
-    setModalType('Edit User');
+    setModalType(modalType);
     setAccountNumber(accountNumber);
-  };
-
-  const openDeleteModal = (accountNumber) => {
-    handleModal(true);
-    setModalType('Delete User');
-    setAccountNumber(accountNumber);
-  };
-
-  const openCreateUserModal = () => {
-    handleModal(true);
-    setModalType('Create User');
   };
 
   const handleDeleteUser = (accountNumber) => {
@@ -86,10 +75,14 @@ const ClientUsers = () => {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item icon={<Pencil size={16} />} onClick={() => openEditModal(item.accountNumber)}>
+              <Menu.Item icon={<Pencil size={16} />} onClick={() => openModal('Edit User', item.accountNumber)}>
                 Edit
               </Menu.Item>
-              <Menu.Item icon={<Trash size={16} />} color="red" onClick={() => openDeleteModal(item.accountNumber)}>
+              <Menu.Item
+                icon={<Trash size={16} />}
+                color="red"
+                onClick={() => openModal('Delete User', item.accountNumber)}
+              >
                 Delete
               </Menu.Item>
             </Menu.Dropdown>
@@ -105,7 +98,7 @@ const ClientUsers = () => {
       <Container my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Group position="right" mb={16}>
-            <Button color="green" leftIcon={<Plus size={16} />} onClick={openCreateUserModal}>
+            <Button color="green" leftIcon={<Plus size={16} />} onClick={() => openModal('Create User')}>
               Create user
             </Button>
           </Group>
