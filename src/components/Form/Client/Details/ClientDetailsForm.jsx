@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text } from '@mantine/core';
+import { Text, Group, Button } from '@mantine/core';
 import { convertDatetime } from '../../../../services/utilities/convertDatetime';
 import { changeAmountText } from '../../../../services/utilities/changeAmountText';
 
-const ClientDetailsForm = ({ transactionDetails }) => {
+const ClientDetailsForm = ({ transactionDetails, onModal }) => {
   return (
     <>
       <Text weight={500}>Reference Number</Text>
@@ -20,6 +20,11 @@ const ClientDetailsForm = ({ transactionDetails }) => {
         Amount
       </Text>
       <Text>{changeAmountText(transactionDetails.description, transactionDetails.amount)}</Text>
+      <Group position="right" mt={30}>
+        <Button variant="default" onClick={() => onModal(false)}>
+          Cancel
+        </Button>
+      </Group>
     </>
   );
 };

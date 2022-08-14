@@ -8,12 +8,14 @@ import ClientCreateUserForm from '../Form/Client/Users/Create/ClientCreateUserFo
 import ClientEditUserForm from '../Form/Client/Users/Edit/ClientEditUserForm';
 import ClientDeleteUserForm from '../Form/Client/Users/Delete/ClientDeleteUserForm';
 import ClientAddExpenseForm from '../Form/Client/Expenses/Add/ClientAddExpenseForm';
+import ClientEditExpenseForm from '../Form/Client/Expenses/Edit/ClientEditExpenseForm';
 import ClientDeleteExpenseForm from '../Form/Client/Expenses/Delete/ClientDeleteExpenseForm';
 
 const ClientModal = ({
   opened,
   modalType,
   transactionDetails,
+  expenseId,
   accountNumber,
   onModal,
   onWithdraw,
@@ -23,6 +25,7 @@ const ClientModal = ({
   onEditUser,
   onDeleteUser,
   onAddExpense,
+  onEditExpense,
   onDeleteExpense,
 }) => {
   const useDisplayForm = () => {
@@ -36,11 +39,11 @@ const ClientModal = ({
       case 'Add Expense':
         return <ClientAddExpenseForm onModal={onModal} onAddExpense={onAddExpense} />;
       case 'Edit Expense':
-        return <ClientWithdrawForm />;
+        return <ClientEditExpenseForm expenseId={expenseId} onModal={onModal} onEditExpense={onEditExpense} />;
       case 'Delete Expense':
         return <ClientDeleteExpenseForm onModal={onModal} onDeleteExpense={onDeleteExpense} />;
       case 'Details':
-        return <ClientDetailsForm transactionDetails={transactionDetails} />;
+        return <ClientDetailsForm onModal={onModal} transactionDetails={transactionDetails} />;
       case 'Create User':
         return <ClientCreateUserForm onModal={onModal} onCreateUser={onCreateUser} />;
       case 'Edit User':

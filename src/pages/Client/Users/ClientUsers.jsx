@@ -45,7 +45,7 @@ const ClientUsers = () => {
     userList[findUserIndex].password = userData.password;
 
     assignLocalStorageItem('userList', userList);
-    showNotificationToast('success', 'User edited');
+    showNotificationToast('success', 'User updated');
     handleModal(false);
   };
 

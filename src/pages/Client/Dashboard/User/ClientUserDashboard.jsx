@@ -123,6 +123,18 @@ const ClientUserDashboard = () => {
         timestamp: new Date(),
       },
     ]);
+    showNotificationToast('success', 'Expense added');
+    handleModal(false);
+  };
+
+  const handleEditExpense = ({ item, expenseAmount }) => {
+    const findExpenseIndex = expenseList.findIndex((expense) => expense.id === expenseId);
+
+    expenseList[findExpenseIndex].item = item;
+    expenseList[findExpenseIndex].amount = expenseAmount;
+
+    assignLocalStorageItem('expenseList', expenseList);
+    showNotificationToast('success', 'Expense updated');
     handleModal(false);
   };
 
@@ -161,7 +173,13 @@ const ClientUserDashboard = () => {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item icon={<Pencil size={16} />} onClick={() => openModal('Edit Expense', item.id)}>
+              <Menu.Item
+                icon={<Pencil size={16} />}
+                onClick={() => {
+                  openModal('Edit Expense');
+                  setExpenseId(item.id);
+                }}
+              >
                 Edit
               </Menu.Item>
               <Menu.Item
@@ -257,11 +275,13 @@ const ClientUserDashboard = () => {
       <ClientModal
         opened={opened}
         modalType={modalType}
+        expenseId={expenseId}
         onModal={handleModal}
         onWithdraw={handleWithdraw}
         onDeposit={handleDeposit}
         onTransfer={handleTransfer}
         onAddExpense={handleAddExpense}
+        onEditExpense={handleEditExpense}
         onDeleteExpense={handleDeleteExpense}
       />
     </>
