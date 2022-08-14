@@ -15,22 +15,23 @@ import {
 } from 'tabler-icons-react';
 import ClientModal from '../../../../components/Modal/ClientModal';
 import { convertCurrency } from '../../../../services/utilities/convertCurrency';
+import { convertDatetime } from '../../../../services/utilities/convertDatetime';
 import { getLocalStorageItem, assignLocalStorageItem } from '../../../../services/utilities/localStorage';
 import { showNotificationToast } from '../../../../services/utilities/showNotificationToast';
 
 const ClientUserDashboard = () => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const userListLocalStorage = getLocalStorageItem('userList');
-  const expenseListLocalStorage = getLocalStorageItem('expenseList');
-  const transactionListLocalStorage = getLocalStorageItem('transactionList');
   const findUser = userListLocalStorage.find((user) => user.accountNumber === userDataLocalStorage.accountNumber);
+  const transactionListLocalStorage = getLocalStorageItem('transactionList');
+  const expenseListLocalStorage = getLocalStorageItem('expenseList');
 
   const [opened, setOpened] = useState(false);
   const [modalType, setModalType] = useState('');
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState(0);
   const [accountNumber, setAccountNumber] = useState(0);
-  const [referenceNumber, setReferenceNumber] = useState(0);
+  const [item, setItem] = useState('');
   const [userList, setUserList] = useState(null);
   const [expenseList, setExpenseList] = useState(null);
 
@@ -43,10 +44,9 @@ const ClientUserDashboard = () => {
 
   const handleModal = (bool) => (bool === true ? setOpened(true) : setOpened(false));
 
-  const openModal = (modalType, id) => {
+  const openModal = (modalType) => {
     handleModal(true);
     setModalType(modalType);
-    console.log(id);
   };
 
   const findUserIndex = (accountNumber) => userList.findIndex((user) => user.accountNumber === accountNumber);
@@ -144,6 +144,7 @@ const ClientUserDashboard = () => {
       <tr key={item.id}>
         <td>{item.item}</td>
         <td>{convertCurrency(item.amount)}</td>
+        <td>{convertDatetime(item.timestamp)}</td>
         <td>
           <Menu transition="pop" withArrow position="bottom-end">
             <Menu.Target>
@@ -163,6 +164,22 @@ const ClientUserDashboard = () => {
         </td>
       </tr>
     ));
+  };
+
+  const handleAddExpense = (e) => {
+    e.preventDefault();
+
+    assignLocalStorageItem('expenseList', [
+      ...expenseListLocalStorage,
+      {
+        id: Date.parse(new Date()),
+        accountNumber: userDataLocalStorage.accountNumber,
+        item: item,
+        amount: amount,
+        timestamp: new Date(),
+      },
+    ]);
+    handleModal(false);
   };
 
   return (
@@ -230,6 +247,7 @@ const ClientUserDashboard = () => {
               <tr>
                 <th>Item</th>
                 <th>Amount</th>
+                <th>Date Added</th>
                 <th></th>
               </tr>
             </thead>
@@ -246,6 +264,8 @@ const ClientUserDashboard = () => {
         onWithdraw={handleWithdraw}
         onDeposit={handleDeposit}
         onTransfer={handleTransfer}
+        onItem={setItem}
+        onAddExpense={handleAddExpense}
       />
     </>
   );
