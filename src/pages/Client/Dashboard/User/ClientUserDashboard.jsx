@@ -23,19 +23,14 @@ const ClientUserDashboard = () => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const userListLocalStorage = getLocalStorageItem('userList');
   const findUser = userListLocalStorage.find((user) => user.accountNumber === userDataLocalStorage.accountNumber);
-
   const transactionListLocalStorage = getLocalStorageItem('transactionList');
-
   const expenseListLocalStorage = getLocalStorageItem('expenseList');
 
   const [opened, setOpened] = useState(false);
   const [modalType, setModalType] = useState('');
-  const [userList, setUserList] = useState(null);
   const [balance, setBalance] = useState('');
-  const [amount, setAmount] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
+  const [userList, setUserList] = useState(null);
   const [expenseList, setExpenseList] = useState(null);
-  const [item, setItem] = useState('');
 
   useEffect(() => {
     setBalance(findUser.balance);
@@ -162,16 +157,14 @@ const ClientUserDashboard = () => {
     ));
   };
 
-  const handleAddExpense = (e) => {
-    e.preventDefault();
-
+  const handleAddExpense = ({ item, expenseAmount }) => {
     assignLocalStorageItem('expenseList', [
       ...expenseListLocalStorage,
       {
         id: Date.parse(new Date()),
         accountNumber: userDataLocalStorage.accountNumber,
         item: item,
-        amount: amount,
+        amount: expenseAmount,
         timestamp: new Date(),
       },
     ]);
@@ -255,12 +248,9 @@ const ClientUserDashboard = () => {
         opened={opened}
         modalType={modalType}
         onModal={handleModal}
-        onAccountNumber={setAccountNumber}
-        onAmount={setAmount}
         onWithdraw={handleWithdraw}
         onDeposit={handleDeposit}
         onTransfer={handleTransfer}
-        onItem={setItem}
         onAddExpense={handleAddExpense}
       />
     </>

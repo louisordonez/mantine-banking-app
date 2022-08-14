@@ -15,15 +15,12 @@ const ClientModal = ({
   transactionDetails,
   accountNumber,
   onModal,
-  onAccountNumber,
-  onAmount,
   onWithdraw,
   onDeposit,
   onTransfer,
   onCreateUser,
   onEditUser,
   onDeleteUser,
-  onItem,
   onAddExpense,
 }) => {
   const useDisplayForm = () => {
@@ -35,9 +32,7 @@ const ClientModal = ({
       case 'Transfer':
         return <ClientTransferForm onModal={onModal} onTransfer={onTransfer} />;
       case 'Add Expense':
-        return (
-          <ClientAddExpenseForm onModal={onModal} onAddExpense={onAddExpense} onItem={onItem} onAmount={onAmount} />
-        );
+        return <ClientAddExpenseForm onModal={onModal} onAddExpense={onAddExpense} />;
       case 'Edit Expense':
         return <ClientWithdrawForm />;
       case 'Delete Expense':
