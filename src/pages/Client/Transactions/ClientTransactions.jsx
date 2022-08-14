@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Title, Container, Paper, Group, TextInput, Table, Menu, ActionIcon } from '@mantine/core';
+import { Title, Container, Paper, Group, TextInput, Table, Menu, ActionIcon, ScrollArea } from '@mantine/core';
 import ClientModal from '../../../components/Modal/ClientModal';
 import { Search, Dots, InfoCircle } from 'tabler-icons-react';
 import { getLocalStorageItem } from '../../../services/utilities/localStorage';
@@ -80,25 +80,27 @@ const ClientTransactions = () => {
       <Title>Transactions</Title>
       <Container my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput
-            placeholder="Enter reference number"
-            type="number"
-            icon={<Search size={16} />}
-            mb={16}
-            onChange={(e) => setSearchReferenceNumber(e.target.value)}
-          ></TextInput>
-          <Table highlightOnHover>
-            <thead>
-              <tr>
-                <th>Reference Number</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>{showTransactions()}</tbody>
-          </Table>
+          <ScrollArea>
+            <TextInput
+              placeholder="Enter reference number"
+              type="number"
+              icon={<Search size={16} />}
+              mb={16}
+              onChange={(e) => setSearchReferenceNumber(e.target.value)}
+            ></TextInput>
+            <Table highlightOnHover>
+              <thead>
+                <tr>
+                  <th>Reference Number</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>{showTransactions()}</tbody>
+            </Table>
+          </ScrollArea>
         </Paper>
       </Container>
       <ClientModal

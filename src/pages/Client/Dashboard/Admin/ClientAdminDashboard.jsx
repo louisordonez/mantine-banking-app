@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Title, Container, Paper, Group, Table, Text, Anchor } from '@mantine/core';
+import { Title, Container, Paper, Group, Table, Text, Anchor, ScrollArea } from '@mantine/core';
 import { Users, Cash } from 'tabler-icons-react';
 import { getLocalStorageItem } from '../../../../services/utilities/localStorage';
 import { convertDatetime } from '../../../../services/utilities/convertDatetime';
@@ -71,41 +71,45 @@ const ClientAdminDashboard = () => {
           </Paper>
         </Group>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Group position="apart">
-            <Text>Recent Users</Text>
-            <Anchor color="green" onClick={() => navigate('/users')}>
-              See All
-            </Anchor>
-          </Group>
-          <Table highlightOnHover mt={24}>
-            <thead>
-              <tr>
-                <th>Account Number</th>
-                <th>Name</th>
-                <th>Balance</th>
-              </tr>
-            </thead>
-            <tbody>{showRecentUsersRows()}</tbody>
-          </Table>
+          <ScrollArea>
+            <Group position="apart">
+              <Text>Recent Users</Text>
+              <Anchor color="green" onClick={() => navigate('/users')}>
+                See All
+              </Anchor>
+            </Group>
+            <Table highlightOnHover mt={24}>
+              <thead>
+                <tr>
+                  <th>Account Number</th>
+                  <th>Name</th>
+                  <th>Balance</th>
+                </tr>
+              </thead>
+              <tbody>{showRecentUsersRows()}</tbody>
+            </Table>
+          </ScrollArea>
         </Paper>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Group position="apart">
-            <Text>Recent Transactions</Text>
-            <Anchor color="green" onClick={() => navigate('/transactions')}>
-              See All
-            </Anchor>
-          </Group>
-          <Table highlightOnHover mt={24}>
-            <thead>
-              <tr>
-                <th>Reference Number</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>{showRecentTransactionsRows()}</tbody>
-          </Table>
+          <ScrollArea>
+            <Group position="apart">
+              <Text>Recent Transactions</Text>
+              <Anchor color="green" onClick={() => navigate('/transactions')}>
+                See All
+              </Anchor>
+            </Group>
+            <Table highlightOnHover mt={24}>
+              <thead>
+                <tr>
+                  <th>Reference Number</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>{showRecentTransactionsRows()}</tbody>
+            </Table>
+          </ScrollArea>
         </Paper>
       </Container>
     </>

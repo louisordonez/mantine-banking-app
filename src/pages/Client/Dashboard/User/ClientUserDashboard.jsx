@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Title, Container, Paper, Group, Table, Text, Stack, Button, Menu, ActionIcon } from '@mantine/core';
+import {
+  Title,
+  Container,
+  Paper,
+  Group,
+  Table,
+  Text,
+  Stack,
+  Button,
+  Menu,
+  ActionIcon,
+  ScrollArea,
+} from '@mantine/core';
 import {
   User,
   Wallet,
@@ -261,23 +273,25 @@ const ClientUserDashboard = () => {
           </Paper>
         </Group>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Group position="apart">
-            <Text>Expenses</Text>
-            <Button color="green" leftIcon={<Plus size={16} />} onClick={() => openModal('Add Expense')}>
-              Add Expense
-            </Button>
-          </Group>
-          <Table highlightOnHover mt={24}>
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Amount</th>
-                <th>Date Added</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>{showExpenses()}</tbody>
-          </Table>
+          <ScrollArea>
+            <Group position="apart">
+              <Text>Expenses</Text>
+              <Button color="green" leftIcon={<Plus size={16} />} onClick={() => openModal('Add Expense')}>
+                Add Expense
+              </Button>
+            </Group>
+            <Table highlightOnHover mt={24}>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Amount</th>
+                  <th>Date Added</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>{showExpenses()}</tbody>
+            </Table>
+          </ScrollArea>
         </Paper>
       </Container>
       <ClientModal
