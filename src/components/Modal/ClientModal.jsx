@@ -33,14 +33,7 @@ const ClientModal = ({
       case 'Deposit':
         return <ClientDepositForm onModal={onModal} onDeposit={onDeposit} />;
       case 'Transfer':
-        return (
-          <ClientTransferForm
-            onModal={onModal}
-            onTransfer={onTransfer}
-            onAccountNumber={onAccountNumber}
-            onAmount={onAmount}
-          />
-        );
+        return <ClientTransferForm onModal={onModal} onTransfer={onTransfer} />;
       case 'Add Expense':
         return (
           <ClientAddExpenseForm onModal={onModal} onAddExpense={onAddExpense} onItem={onItem} onAmount={onAmount} />
