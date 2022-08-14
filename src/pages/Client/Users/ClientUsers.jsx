@@ -31,8 +31,8 @@ const ClientUsers = () => {
     const newUserList = userList.filter((user) => user.accountNumber !== accountNumber);
 
     assignLocalStorageItem('userList', newUserList);
-    handleModal(false);
     showNotificationToast('success', 'User deleted');
+    handleModal(false);
   };
 
   const handleEditUser = (userData) => {
@@ -45,14 +45,14 @@ const ClientUsers = () => {
     userList[findUserIndex].password = userData.password;
 
     assignLocalStorageItem('userList', userList);
-    handleModal(false);
     showNotificationToast('success', 'User edited');
+    handleModal(false);
   };
 
   const handleCreateUser = (userInfo) => {
     assignLocalStorageItem('userList', [...userListLocalStorage, userInfo]);
-    handleModal(false);
     showNotificationToast('success', 'User created');
+    handleModal(false);
   };
 
   const showUsers = () => {

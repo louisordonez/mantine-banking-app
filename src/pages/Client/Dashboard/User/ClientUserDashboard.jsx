@@ -31,6 +31,7 @@ const ClientUserDashboard = () => {
   const [balance, setBalance] = useState('');
   const [userList, setUserList] = useState(null);
   const [expenseList, setExpenseList] = useState(null);
+  const [expenseId, setExpenseId] = useState('');
 
   useEffect(() => {
     setBalance(findUser.balance);
@@ -119,6 +120,30 @@ const ClientUserDashboard = () => {
     }
   };
 
+  const handleAddExpense = ({ item, expenseAmount }) => {
+    assignLocalStorageItem('expenseList', [
+      ...expenseListLocalStorage,
+      {
+        id: Date.parse(new Date()),
+        accountNumber: userDataLocalStorage.accountNumber,
+        item: item,
+        amount: expenseAmount,
+        timestamp: new Date(),
+      },
+    ]);
+    handleModal(false);
+  };
+
+  const handleDeleteExpense = (bool) => {
+    if (bool === true) {
+      const newExpenseList = expenseList.filter((user) => user.id !== expenseId);
+
+      assignLocalStorageItem('expenseList', newExpenseList);
+      showNotificationToast('success', 'Item deleted');
+      handleModal(false);
+    }
+  };
+
   const showCalcExpenses = () => {
     const expenses = filterExpenses();
     const expensesAmount = expenses.map((item) => item.amount);
@@ -147,7 +172,14 @@ const ClientUserDashboard = () => {
               <Menu.Item icon={<Pencil size={16} />} onClick={() => openModal('Edit Expense', item.id)}>
                 Edit
               </Menu.Item>
-              <Menu.Item icon={<Trash size={16} />} color="red" onClick={() => openModal('Delete Expense', item.id)}>
+              <Menu.Item
+                icon={<Trash size={16} />}
+                color="red"
+                onClick={() => {
+                  openModal('Delete Expense');
+                  setExpenseId(item.id);
+                }}
+              >
                 Delete
               </Menu.Item>
             </Menu.Dropdown>
@@ -155,20 +187,6 @@ const ClientUserDashboard = () => {
         </td>
       </tr>
     ));
-  };
-
-  const handleAddExpense = ({ item, expenseAmount }) => {
-    assignLocalStorageItem('expenseList', [
-      ...expenseListLocalStorage,
-      {
-        id: Date.parse(new Date()),
-        accountNumber: userDataLocalStorage.accountNumber,
-        item: item,
-        amount: expenseAmount,
-        timestamp: new Date(),
-      },
-    ]);
-    handleModal(false);
   };
 
   return (
@@ -252,6 +270,7 @@ const ClientUserDashboard = () => {
         onDeposit={handleDeposit}
         onTransfer={handleTransfer}
         onAddExpense={handleAddExpense}
+        onDeleteExpense={handleDeleteExpense}
       />
     </>
   );

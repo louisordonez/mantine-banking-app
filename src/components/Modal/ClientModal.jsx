@@ -8,6 +8,7 @@ import ClientCreateUserForm from '../Form/Client/Users/Create/ClientCreateUserFo
 import ClientEditUserForm from '../Form/Client/Users/Edit/ClientEditUserForm';
 import ClientDeleteUserForm from '../Form/Client/Users/Delete/ClientDeleteUserForm';
 import ClientAddExpenseForm from '../Form/Client/Expenses/Add/ClientAddExpenseForm';
+import ClientDeleteExpenseForm from '../Form/Client/Expenses/Delete/ClientDeleteExpenseForm';
 
 const ClientModal = ({
   opened,
@@ -22,6 +23,7 @@ const ClientModal = ({
   onEditUser,
   onDeleteUser,
   onAddExpense,
+  onDeleteExpense,
 }) => {
   const useDisplayForm = () => {
     switch (modalType) {
@@ -36,7 +38,7 @@ const ClientModal = ({
       case 'Edit Expense':
         return <ClientWithdrawForm />;
       case 'Delete Expense':
-        return <ClientWithdrawForm />;
+        return <ClientDeleteExpenseForm onModal={onModal} onDeleteExpense={onDeleteExpense} />;
       case 'Details':
         return <ClientDetailsForm transactionDetails={transactionDetails} />;
       case 'Create User':
