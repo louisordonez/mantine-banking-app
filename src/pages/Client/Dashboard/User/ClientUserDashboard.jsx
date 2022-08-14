@@ -80,6 +80,7 @@ const ClientUserDashboard = () => {
 
     assignLocalStorageItem('userList', userList);
     handleCreateTransaction('Withdraw', withdrawAmount);
+    showNotificationToast('success', 'Money withdrew');
     handleModal(false);
   };
 
@@ -90,6 +91,7 @@ const ClientUserDashboard = () => {
 
     assignLocalStorageItem('userList', userList);
     handleCreateTransaction('Deposit', depositAmount);
+    showNotificationToast('success', 'Money deposited');
     handleModal(false);
   };
 
@@ -105,6 +107,7 @@ const ClientUserDashboard = () => {
 
       assignLocalStorageItem('userList', userList);
       handleCreateTransaction('Transfer', transferAmount, accountNumber);
+      showNotificationToast('success', 'Money transferred');
       handleModal(false);
     }
   };
