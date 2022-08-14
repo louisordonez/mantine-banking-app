@@ -23,17 +23,19 @@ const ClientUserDashboard = () => {
   const userDataLocalStorage = getLocalStorageItem('userData')[0];
   const userListLocalStorage = getLocalStorageItem('userList');
   const findUser = userListLocalStorage.find((user) => user.accountNumber === userDataLocalStorage.accountNumber);
+
   const transactionListLocalStorage = getLocalStorageItem('transactionList');
+
   const expenseListLocalStorage = getLocalStorageItem('expenseList');
 
   const [opened, setOpened] = useState(false);
   const [modalType, setModalType] = useState('');
-  const [balance, setBalance] = useState(0);
-  const [amount, setAmount] = useState(0);
-  const [accountNumber, setAccountNumber] = useState(0);
-  const [item, setItem] = useState('');
   const [userList, setUserList] = useState(null);
+  const [balance, setBalance] = useState('');
+  const [amount, setAmount] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
   const [expenseList, setExpenseList] = useState(null);
+  const [item, setItem] = useState('');
 
   useEffect(() => {
     setBalance(findUser.balance);
@@ -78,12 +80,10 @@ const ClientUserDashboard = () => {
     handleModal(false);
   };
 
-  const handleDeposit = (e) => {
-    e.preventDefault();
-
+  const handleDeposit = (depositAmount) => {
     const index = findUserIndex(userDataLocalStorage.accountNumber);
 
-    userList[index].balance += amount;
+    userList[index].balance += depositAmount;
 
     assignLocalStorageItem('userList', userList);
     assignLocalStorageItem('transactionList', [
@@ -92,7 +92,7 @@ const ClientUserDashboard = () => {
         referenceNumber: Date.parse(new Date()),
         accountNumber: userDataLocalStorage.accountNumber,
         description: 'Deposit',
-        amount: amount,
+        amount: depositAmount,
         timestamp: new Date(),
       },
     ]);

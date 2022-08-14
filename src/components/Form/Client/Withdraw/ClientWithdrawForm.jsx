@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, Group, Button } from '@mantine/core';
 
-const ClientWithdrawForm = ({ onWithdraw, onAmount, onModal }) => {
+const ClientWithdrawForm = ({ onWithdraw, onModal }) => {
   const [amount, setAmount] = useState('');
 
   const handleSubmit = (e) => {

@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextInput, Group, Button } from '@mantine/core';
 
-const ClientDepositForm = ({ onAmount, onDeposit, onModal }) => {
+const ClientDepositForm = ({ onDeposit, onModal }) => {
+  const [amount, setAmount] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    onDeposit(amount);
+  };
   return (
     <>
-      <form onSubmit={onDeposit}>
+      <form onSubmit={handleSubmit}>
         <Group grow>
           <TextInput
             label="Amount"
@@ -12,7 +19,7 @@ const ClientDepositForm = ({ onAmount, onDeposit, onModal }) => {
             type="number"
             min=".01"
             step="0.01"
-            onChange={(e) => onAmount(parseFloat(e.target.value))}
+            onChange={(e) => setAmount(parseFloat(e.target.value))}
           ></TextInput>
         </Group>
         <Group position="right" mt={30}>

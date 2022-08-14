@@ -29,9 +29,9 @@ const ClientModal = ({
   const useDisplayForm = () => {
     switch (modalType) {
       case 'Withdraw':
-        return <ClientWithdrawForm onModal={onModal} onWithdraw={onWithdraw} onAmount={onAmount} />;
+        return <ClientWithdrawForm onModal={onModal} onWithdraw={onWithdraw} />;
       case 'Deposit':
-        return <ClientDepositForm onModal={onModal} onDeposit={onDeposit} onAmount={onAmount} />;
+        return <ClientDepositForm onModal={onModal} onDeposit={onDeposit} />;
       case 'Transfer':
         return (
           <ClientTransferForm
