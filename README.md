@@ -60,4 +60,4 @@ This project is a combination of Banking and Budget web application.
   `password: jdc`  
   `balance: 0.0`
 
-### Live Demo:
+### Live Demo: http://mantine-banking-app.vercel.app/
