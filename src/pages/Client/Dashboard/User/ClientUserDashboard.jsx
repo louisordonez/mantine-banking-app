@@ -52,6 +52,22 @@ const ClientUserDashboard = () => {
   const filterExpenses = () =>
     expenseListLocalStorage.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
 
+  const handleCreateTransaction = (mode, amount, accountNumber) => {
+    let newTransaction = {
+      referenceNumber: Date.parse(new Date()),
+      accountNumber: userDataLocalStorage.accountNumber,
+      description: mode,
+      amount: amount,
+      timestamp: new Date(),
+    };
+
+    if (mode === 'Transfer') {
+      newTransaction.description = `${userDataLocalStorage.accountNumber} Transfer to ${accountNumber}`;
+    }
+
+    assignLocalStorageItem('transactionList', [...transactionListLocalStorage, newTransaction]);
+  };
+
   const handleWithdraw = (withdrawAmount) => {
     const index = findUserIndex(userDataLocalStorage.accountNumber);
 
@@ -63,16 +79,7 @@ const ClientUserDashboard = () => {
     userList[index].balance -= withdrawAmount;
 
     assignLocalStorageItem('userList', userList);
-    assignLocalStorageItem('transactionList', [
-      ...transactionListLocalStorage,
-      {
-        referenceNumber: Date.parse(new Date()),
-        accountNumber: userDataLocalStorage.accountNumber,
-        description: 'Withdraw',
-        amount: withdrawAmount,
-        timestamp: new Date(),
-      },
-    ]);
+    handleCreateTransaction('Withdraw', withdrawAmount);
     handleModal(false);
   };
 
@@ -82,16 +89,7 @@ const ClientUserDashboard = () => {
     userList[index].balance += depositAmount;
 
     assignLocalStorageItem('userList', userList);
-    assignLocalStorageItem('transactionList', [
-      ...transactionListLocalStorage,
-      {
-        referenceNumber: Date.parse(new Date()),
-        accountNumber: userDataLocalStorage.accountNumber,
-        description: 'Deposit',
-        amount: depositAmount,
-        timestamp: new Date(),
-      },
-    ]);
+    handleCreateTransaction('Deposit', depositAmount);
     handleModal(false);
   };
 
@@ -106,16 +104,7 @@ const ClientUserDashboard = () => {
       userList[userTransferToIndex].balance += transferAmount;
 
       assignLocalStorageItem('userList', userList);
-      assignLocalStorageItem('transactionList', [
-        ...transactionListLocalStorage,
-        {
-          referenceNumber: Date.parse(new Date()),
-          accountNumber: userDataLocalStorage.accountNumber,
-          description: `${userDataLocalStorage.accountNumber} Transfer to ${accountNumber}`,
-          amount: transferAmount,
-          timestamp: new Date(),
-        },
-      ]);
+      handleCreateTransaction('Transfer', transferAmount, accountNumber);
       handleModal(false);
     }
   };
