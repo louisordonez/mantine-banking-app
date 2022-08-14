@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Anchor, Title, Text, Container, Group, Center } from '@mantine/core';
 import { BuildingBank } from 'tabler-icons-react';
 import LoginForm from '../../../components/Form/Landing/Login/LoginForm';
@@ -9,6 +9,8 @@ import { useRedirect } from '../../../services/utilities/useRedirect';
 
 const Login = () => {
   useRedirect();
+
+  let navigate = useNavigate();
 
   const [isError, setIsError] = useState(false);
 
@@ -66,7 +68,7 @@ const Login = () => {
         </Title>
         <Text color="dimmed" size="sm" align="center" mt={5}>
           Do not have an account yet?{' '}
-          <Anchor href="/signup" size="sm">
+          <Anchor size="sm" onClick={() => navigate('/signup')}>
             Create account
           </Anchor>
         </Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Anchor, Title, Text, Container, Group, Center } from '@mantine/core';
 import { BuildingBank } from 'tabler-icons-react';
 import SignUpForm from '../../../components/Form/Landing/SignUp/SignUpForm';
@@ -8,6 +8,8 @@ import { useRedirect } from '../../../services/utilities/useRedirect';
 
 const SignUp = () => {
   useRedirect();
+
+  let navigate = useNavigate();
 
   const handleSignUp = (signUpInfo) => {
     const userListLocalStorage = getLocalStorageItem('userList');
@@ -44,7 +46,7 @@ const SignUp = () => {
         </Title>
         <Text color="dimmed" size="sm" align="center" mt={5}>
           Already have an account?{' '}
-          <Anchor href="/login" size="sm">
+          <Anchor size="sm" onClick={() => navigate('/login')}>
             Sign in
           </Anchor>
         </Text>
