@@ -155,7 +155,7 @@ const ClientUserDashboard = () => {
     return expensesAmount.reduce((a, b) => a + b, 0);
   };
 
-  const showCalcBalance = () => convertCurrency(balance - showCalcExpenses());
+  const showCalcBalance = () => balance - showCalcExpenses();
 
   const showExpenses = () => {
     const expenses = filterExpenses();
@@ -249,7 +249,15 @@ const ClientUserDashboard = () => {
               <CashBanknoteOff />
               <Text>Calc Balance</Text>
             </Group>
-            <Text mt={24}>{showCalcBalance()}</Text>
+            {(() => {
+              return showCalcBalance() < 0 ? (
+                <Text mt={24} color="red">
+                  {convertCurrency(showCalcBalance())}
+                </Text>
+              ) : (
+                <Text mt={24}>{convertCurrency(showCalcBalance())}</Text>
+              );
+            })()}
           </Paper>
         </Group>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
