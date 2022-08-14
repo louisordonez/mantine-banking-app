@@ -54,17 +54,15 @@ const ClientUserDashboard = () => {
   const filterExpenses = () =>
     expenseListLocalStorage.filter((expense) => expense.accountNumber === userDataLocalStorage.accountNumber);
 
-  const handleWithdraw = (e) => {
-    e.preventDefault();
-
+  const handleWithdraw = (withdrawAmount) => {
     const index = findUserIndex(userDataLocalStorage.accountNumber);
 
-    if (amount > userList[index].balance) {
+    if (withdrawAmount > userList[index].balance) {
       showNotificationToast('failed', 'Insufficent balance');
       return false;
     }
 
-    userList[index].balance -= amount;
+    userList[index].balance -= withdrawAmount;
 
     assignLocalStorageItem('userList', userList);
     assignLocalStorageItem('transactionList', [
@@ -73,7 +71,7 @@ const ClientUserDashboard = () => {
         referenceNumber: Date.parse(new Date()),
         accountNumber: userDataLocalStorage.accountNumber,
         description: 'Withdraw',
-        amount: amount,
+        amount: withdrawAmount,
         timestamp: new Date(),
       },
     ]);
