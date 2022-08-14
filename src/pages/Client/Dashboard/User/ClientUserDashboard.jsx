@@ -250,26 +250,30 @@ const ClientUserDashboard = () => {
         </Group>
         <Group grow>
           <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-            <Group>
-              <CashBanknote />
-              <Text>Calc Expenses</Text>
-            </Group>
-            <Text mt={24}>{convertCurrency(showCalcExpenses())}</Text>
+            <ScrollArea>
+              <Group>
+                <CashBanknote />
+                <Text>Calc Expenses</Text>
+              </Group>
+              <Text mt={24}>{convertCurrency(showCalcExpenses())}</Text>
+            </ScrollArea>
           </Paper>
           <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-            <Group>
-              <CashBanknoteOff />
-              <Text>Calc Balance</Text>
-            </Group>
-            {(() => {
-              return showCalcBalance() < 0 ? (
-                <Text mt={24} color="red">
-                  {convertCurrency(showCalcBalance())}
-                </Text>
-              ) : (
-                <Text mt={24}>{convertCurrency(showCalcBalance())}</Text>
-              );
-            })()}
+            <ScrollArea>
+              <Group>
+                <CashBanknoteOff />
+                <Text>Calc Balance</Text>
+              </Group>
+              {(() => {
+                return showCalcBalance() < 0 ? (
+                  <Text mt={24} color="red">
+                    {convertCurrency(showCalcBalance())}
+                  </Text>
+                ) : (
+                  <Text mt={24}>{convertCurrency(showCalcBalance())}</Text>
+                );
+              })()}
+            </ScrollArea>
           </Paper>
         </Group>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
